@@ -1,0 +1,3635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programa Estratégico · Gestión del Ciclo de Vida y Fidelización Automotriz</title>
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════════════════════════ */
+:root {
+  /* Brand Palette */
+  --mint:       #93FBB8;
+  --sage:       #CFDDC0;
+  --forest:     #266A56;
+  --deep:       #003A32;
+  --obsidian:   #1D1D1B;
+  --fire:       #FF4D00;
+  --white:      #FFFFFF;
+
+  /* Grays */
+  --gray-50:    #F7F8F6;
+  --gray-100:   #EDEEED;
+  --gray-200:   #D8DAD7;
+  --gray-300:   #B8BCB7;
+  --gray-400:   #8F948D;
+  --gray-500:   #6B706A;
+  --gray-600:   #4E524D;
+  --gray-700:   #353835;
+  --gray-800:   #252724;
+  --gray-900:   #141514;
+
+  /* Semantic */
+  --bg:         var(--gray-50);
+  --surface:    var(--white);
+  --border:     var(--gray-200);
+  --text:       var(--obsidian);
+  --text-muted: var(--gray-500);
+  --accent:     var(--forest);
+  --accent-2:   var(--fire);
+  --highlight:  var(--mint);
+
+  /* Shadows */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:  0 4px 16px rgba(0,58,50,.08), 0 2px 4px rgba(0,0,0,.04);
+  --shadow-lg:  0 12px 40px rgba(0,58,50,.12), 0 4px 8px rgba(0,0,0,.06);
+  --shadow-xl:  0 24px 64px rgba(0,58,50,.16);
+
+  /* Radius */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+
+  /* Type Scale */
+  --ts-xs: .72rem;
+  --ts-sm: .82rem;
+  --ts-md: .94rem;
+  --ts-lg: 1.08rem;
+  --ts-xl: 1.28rem;
+  --ts-2xl: 1.6rem;
+  --ts-3xl: 2.0rem;
+  --ts-4xl: 2.6rem;
+  --ts-5xl: 3.4rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TOP NAV / HEADER
+═══════════════════════════════════════════════════════════════════ */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: var(--deep);
+  border-bottom: 2px solid var(--forest);
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 20px;
+}
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.logo-mark {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--mint), var(--forest));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--deep);
+  letter-spacing: -1px;
+}
+
+.logo-text {
+  font-size: var(--ts-sm);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: .02em;
+  line-height: 1.2;
+}
+.logo-text span {
+  display: block;
+  font-weight: 400;
+  color: var(--sage);
+  font-size: var(--ts-xs);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.header-badge {
+  margin-left: auto;
+  background: rgba(147,251,184,.12);
+  border: 1px solid rgba(147,251,184,.3);
+  color: var(--mint);
+  font-size: var(--ts-xs);
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TAB NAVIGATION
+═══════════════════════════════════════════════════════════════════ */
+.nav-wrapper {
+  position: fixed;
+  top: 60px; left: 0; right: 0;
+  z-index: 999;
+  background: var(--obsidian);
+  border-bottom: 1px solid var(--gray-700);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-wrapper::-webkit-scrollbar { display: none; }
+
+.tab-nav {
+  display: flex;
+  min-width: max-content;
+  padding: 0 8px;
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  color: var(--gray-400);
+  font-size: var(--ts-xs);
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color .18s, border-color .18s, background .18s;
+  font-family: inherit;
+}
+
+.tab-btn:hover {
+  color: var(--gray-200);
+  background: rgba(255,255,255,.04);
+}
+
+.tab-btn.active {
+  color: var(--mint);
+  border-bottom-color: var(--mint);
+  background: rgba(147,251,184,.05);
+}
+
+.tab-btn .tab-num {
+  width: 18px; height: 18px;
+  background: currentColor;
+  color: var(--obsidian);
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: .7;
+}
+.tab-btn.active .tab-num { opacity: 1; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   MAIN CONTENT
+═══════════════════════════════════════════════════════════════════ */
+.main-content {
+  margin-top: 104px;
+  min-height: calc(100vh - 104px);
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   PAGE SECTIONS
+═══════════════════════════════════════════════════════════════════ */
+.page-hero {
+  background: linear-gradient(135deg, var(--deep) 0%, var(--forest) 60%, rgba(38,106,86,.6) 100%);
+  padding: 56px 48px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(147,251,184,.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.page-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--mint), transparent);
+}
+
+.hero-eyebrow {
+  font-size: var(--ts-xs);
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--mint);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hero-eyebrow::before {
+  content: '';
+  width: 24px; height: 2px;
+  background: var(--mint);
+  border-radius: 2px;
+}
+
+.hero-title {
+  font-size: clamp(1.8rem, 3vw, var(--ts-4xl));
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.15;
+  max-width: 780px;
+  letter-spacing: -.02em;
+  margin-bottom: 16px;
+}
+.hero-title em {
+  font-style: normal;
+  color: var(--mint);
+}
+
+.hero-desc {
+  font-size: var(--ts-lg);
+  color: rgba(207,221,192,.85);
+  max-width: 640px;
+  line-height: 1.6;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-stat-val {
+  font-size: var(--ts-3xl);
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -.03em;
+  line-height: 1;
+}
+.hero-stat-val.accent { color: var(--mint); }
+.hero-stat-val.fire { color: var(--fire); }
+
+.hero-stat-label {
+  font-size: var(--ts-xs);
+  font-weight: 600;
+  color: rgba(207,221,192,.7);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.section-body {
+  padding: 40px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .page-hero { padding: 36px 20px 32px; }
+  .section-body { padding: 24px 16px; }
+  .hero-stats { gap: 20px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CARDS
+═══════════════════════════════════════════════════════════════════ */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.card-icon {
+  width: 40px; height: 40px;
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.card-icon.green { background: rgba(38,106,86,.1); color: var(--forest); }
+.card-icon.mint  { background: rgba(147,251,184,.2); color: var(--forest); }
+.card-icon.fire  { background: rgba(255,77,0,.1); color: var(--fire); }
+.card-icon.blue  { background: rgba(59,130,246,.1); color: #3b82f6; }
+.card-icon.purple{ background: rgba(139,92,246,.1); color: #8b5cf6; }
+.card-icon.gold  { background: rgba(245,158,11,.1); color: #f59e0b; }
+
+.card-title { font-size: var(--ts-lg); font-weight: 700; color: var(--text); line-height: 1.3; }
+.card-subtitle { font-size: var(--ts-sm); color: var(--text-muted); margin-top: 2px; }
+
+.card-body { padding: 20px 24px; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   GRID UTILITIES
+═══════════════════════════════════════════════════════════════════ */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.grid-auto { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+
+@media (max-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SECTION TITLES
+═══════════════════════════════════════════════════════════════════ */
+.section-title-group { margin-bottom: 28px; }
+.section-eyebrow {
+  font-size: var(--ts-xs);
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--forest);
+  margin-bottom: 6px;
+}
+.section-title {
+  font-size: clamp(1.3rem, 2.5vw, var(--ts-3xl));
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -.02em;
+  line-height: 1.2;
+}
+.section-lead {
+  font-size: var(--ts-lg);
+  color: var(--text-muted);
+  margin-top: 8px;
+  max-width: 680px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   METRIC CARDS
+═══════════════════════════════════════════════════════════════════ */
+.metric-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .18s, box-shadow .18s;
+}
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.metric-card.green::before  { background: linear-gradient(90deg, var(--forest), var(--mint)); }
+.metric-card.fire::before   { background: var(--fire); }
+.metric-card.gold::before   { background: #f59e0b; }
+.metric-card.purple::before { background: #8b5cf6; }
+
+.metric-val {
+  font-size: var(--ts-4xl);
+  font-weight: 900;
+  letter-spacing: -.03em;
+  line-height: 1;
+  color: var(--deep);
+}
+.metric-val.pct::after { content: '%'; font-size: .5em; }
+
+.metric-label {
+  font-size: var(--ts-sm);
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 6px;
+  letter-spacing: .02em;
+}
+
+.metric-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: var(--ts-xs);
+  font-weight: 700;
+  margin-top: 8px;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+.metric-delta.up {
+  background: rgba(38,106,86,.1);
+  color: var(--forest);
+}
+.metric-delta.down {
+  background: rgba(255,77,0,.1);
+  color: var(--fire);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SEGMENT BADGES
+═══════════════════════════════════════════════════════════════════ */
+.seg-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--ts-xs);
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.seg-vip    { background: linear-gradient(135deg,#1a0533,#4c1d95); color: #c4b5fd; border: 1px solid #4c1d95; }
+.seg-oro    { background: linear-gradient(135deg,#451a03,#92400e); color: #fcd34d; border: 1px solid #92400e; }
+.seg-plata  { background: linear-gradient(135deg,#1e2a3a,#334155); color: #cbd5e1; border: 1px solid #334155; }
+.seg-bronce { background: linear-gradient(135deg,#1c1410,#44322a); color: #d97706; border: 1px solid #44322a; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   PRIORITY PILL
+═══════════════════════════════════════════════════════════════════ */
+.priority { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: var(--ts-xs); font-weight: 700; }
+.priority.maxima  { background: rgba(255,77,0,.12); color: var(--fire); border: 1px solid rgba(255,77,0,.3); }
+.priority.muy-alta{ background: rgba(38,106,86,.12); color: var(--forest); border: 1px solid rgba(38,106,86,.3); }
+.priority.alta    { background: rgba(59,130,246,.12); color: #2563eb; border: 1px solid rgba(59,130,246,.3); }
+.priority.media   { background: rgba(245,158,11,.12); color: #d97706; border: 1px solid rgba(245,158,11,.3); }
+.priority.baja    { background: rgba(107,114,128,.1); color: var(--gray-500); border: 1px solid var(--border); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   TABLES
+═══════════════════════════════════════════════════════════════════ */
+.table-wrap { overflow-x: auto; border-radius: var(--r-md); border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; background: var(--surface); font-size: var(--ts-sm); }
+thead tr { background: var(--deep); }
+thead th {
+  padding: 12px 16px;
+  color: var(--mint);
+  font-size: var(--ts-xs);
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-align: left;
+  white-space: nowrap;
+}
+tbody tr { border-bottom: 1px solid var(--border); transition: background .12s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: rgba(38,106,86,.04); }
+tbody td { padding: 12px 16px; color: var(--text); vertical-align: middle; }
+tbody td.muted { color: var(--text-muted); }
+.table-section-header td { background: var(--gray-100); font-weight: 700; color: var(--text); font-size: var(--ts-xs); letter-spacing: .06em; text-transform: uppercase; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   JOURNEY / TIMELINE
+═══════════════════════════════════════════════════════════════════ */
+.journey-track {
+  position: relative;
+  padding: 0 0 0 36px;
+}
+.journey-track::before {
+  content: '';
+  position: absolute;
+  left: 14px; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--forest), var(--mint), var(--forest));
+}
+
+.journey-node {
+  position: relative;
+  margin-bottom: 20px;
+}
+.journey-node::before {
+  content: '';
+  position: absolute;
+  left: -30px; top: 18px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--forest);
+  border: 3px solid var(--surface);
+  box-shadow: 0 0 0 2px var(--forest);
+}
+
+.journey-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.journey-header {
+  background: linear-gradient(135deg, var(--deep), var(--forest));
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.journey-cycle {
+  font-size: var(--ts-xs);
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--mint);
+}
+
+.journey-period {
+  font-size: var(--ts-xs);
+  color: rgba(207,221,192,.7);
+  font-weight: 600;
+}
+
+.journey-body { padding: 16px; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   MOTOR CARDS
+═══════════════════════════════════════════════════════════════════ */
+.motor-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.motor-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--forest);
+}
+
+.motor-header {
+  padding: 24px;
+  background: linear-gradient(135deg, var(--deep) 0%, rgba(38,106,86,.9) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.motor-header::after {
+  content: '';
+  position: absolute;
+  right: -20px; top: -20px;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: rgba(147,251,184,.08);
+}
+
+.motor-number {
+  font-size: var(--ts-5xl);
+  font-weight: 900;
+  color: rgba(147,251,184,.2);
+  line-height: 1;
+  letter-spacing: -.06em;
+  position: absolute;
+  right: 16px; top: 8px;
+}
+
+.motor-label {
+  font-size: var(--ts-xs);
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(207,221,192,.7);
+  margin-bottom: 4px;
+}
+
+.motor-name {
+  font-size: var(--ts-2xl);
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -.02em;
+}
+
+.motor-body { padding: 20px 24px; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   PROGRESS BARS
+═══════════════════════════════════════════════════════════════════ */
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.progress-label {
+  font-size: var(--ts-sm);
+  color: var(--text);
+  min-width: 120px;
+  font-weight: 500;
+}
+.progress-bar-wrap {
+  flex: 1;
+  height: 8px;
+  background: var(--gray-100);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--forest), var(--mint));
+  transition: width 1s ease-out;
+}
+.progress-bar.fire { background: linear-gradient(90deg, var(--fire), #ff8c4a); }
+.progress-val {
+  font-size: var(--ts-sm);
+  font-weight: 700;
+  color: var(--text);
+  min-width: 42px;
+  text-align: right;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   TOUCHPOINT CARDS
+═══════════════════════════════════════════════════════════════════ */
+.tp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .18s, box-shadow .18s;
+}
+.tp-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.tp-card.transaccional::after {
+  content: 'TRANSACCIONAL';
+  position: absolute;
+  top: 10px; right: 10px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  background: rgba(255,77,0,.1);
+  color: var(--fire);
+  padding: 2px 7px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,77,0,.2);
+}
+
+.tp-card.relacional::after {
+  content: 'RELACIONAL';
+  position: absolute;
+  top: 10px; right: 10px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  background: rgba(38,106,86,.1);
+  color: var(--forest);
+  padding: 2px 7px;
+  border-radius: 20px;
+  border: 1px solid rgba(38,106,86,.2);
+}
+
+.tp-code {
+  font-size: var(--ts-xs);
+  font-weight: 800;
+  letter-spacing: .1em;
+  color: var(--forest);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.tp-title {
+  font-size: var(--ts-md);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.tp-moment {
+  font-size: var(--ts-xs);
+  color: var(--text-muted);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.tp-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.tp-field-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.tp-field-val {
+  font-size: var(--ts-xs);
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BENEFIT TIERS
+═══════════════════════════════════════════════════════════════════ */
+.tier-card {
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.tier-header {
+  padding: 28px 24px 20px;
+  position: relative;
+}
+.tier-header.vip    { background: linear-gradient(135deg,#1a0533,#4c1d95,#6d28d9); }
+.tier-header.oro    { background: linear-gradient(135deg,#451a03,#92400e,#b45309); }
+.tier-header.plata  { background: linear-gradient(135deg,#1e2a3a,#334155,#475569); }
+.tier-header.bronce { background: linear-gradient(135deg,#1c1410,#44322a,#6b4c36); }
+
+.tier-name {
+  font-size: var(--ts-2xl);
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -.02em;
+  margin-bottom: 4px;
+}
+.tier-desc { font-size: var(--ts-sm); color: rgba(255,255,255,.7); }
+
+.tier-body { background: var(--surface); padding: 20px 24px; border: 1px solid var(--border); border-top: none; border-radius: 0 0 var(--r-lg) var(--r-lg); }
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+.benefit-item:last-child { border-bottom: none; }
+.benefit-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+.benefit-dot.vip    { background: #8b5cf6; }
+.benefit-dot.oro    { background: #f59e0b; }
+.benefit-dot.plata  { background: #94a3b8; }
+.benefit-dot.bronce { background: #d97706; }
+.benefit-text { font-size: var(--ts-sm); color: var(--text); font-weight: 500; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   QUADRANT CHART
+═══════════════════════════════════════════════════════════════════ */
+.quadrant-wrap {
+  position: relative;
+  width: 100%;
+  padding-top: 60%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.quadrant-inner {
+  position: absolute;
+  inset: 0;
+  padding: 40px;
+}
+.quadrant-grid {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 4px;
+  position: relative;
+}
+
+.q-cell {
+  border-radius: var(--r-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: transform .2s;
+}
+.q-cell:hover { transform: scale(1.02); z-index: 1; }
+
+.q1 { background: linear-gradient(135deg, rgba(38,106,86,.15), rgba(147,251,184,.2)); border: 2px solid rgba(38,106,86,.3); }
+.q2 { background: linear-gradient(135deg, rgba(255,77,0,.1), rgba(255,77,0,.18)); border: 2px solid rgba(255,77,0,.3); }
+.q3 { background: linear-gradient(135deg, rgba(107,114,128,.06), rgba(107,114,128,.1)); border: 2px solid rgba(107,114,128,.2); }
+.q4 { background: linear-gradient(135deg, rgba(59,130,246,.1), rgba(59,130,246,.18)); border: 2px solid rgba(59,130,246,.25); }
+
+.q-label {
+  font-size: var(--ts-sm);
+  font-weight: 800;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.q1 .q-label { color: var(--forest); }
+.q2 .q-label { color: var(--fire); }
+.q3 .q-label { color: var(--gray-500); }
+.q4 .q-label { color: #2563eb; }
+
+.q-desc { font-size: var(--ts-xs); color: var(--text-muted); line-height: 1.4; }
+.q-sub  { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; opacity: .6; }
+
+/* Quadrant Axes */
+.q-axis-x {
+  position: absolute;
+  bottom: -24px; left: 40px; right: 40px;
+  text-align: center;
+  font-size: var(--ts-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.q-axis-y {
+  position: absolute;
+  left: 4px; top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  font-size: var(--ts-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ROADMAP
+═══════════════════════════════════════════════════════════════════ */
+.roadmap-track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  position: relative;
+}
+.roadmap-track::before {
+  content: '';
+  position: absolute;
+  top: 48px; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--forest), var(--mint), var(--forest), var(--sage));
+  z-index: 0;
+}
+
+.roadmap-phase {
+  position: relative;
+  z-index: 1;
+}
+
+.roadmap-dot {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--ts-sm);
+  font-weight: 800;
+  color: var(--white);
+  margin: 0 auto 12px;
+  position: relative;
+  z-index: 1;
+}
+.roadmap-dot.ph1 { background: var(--forest); box-shadow: 0 0 0 4px rgba(38,106,86,.2); }
+.roadmap-dot.ph2 { background: #2563eb; box-shadow: 0 0 0 4px rgba(37,99,235,.2); }
+.roadmap-dot.ph3 { background: #7c3aed; box-shadow: 0 0 0 4px rgba(124,58,237,.2); }
+.roadmap-dot.ph4 { background: var(--fire); box-shadow: 0 0 0 4px rgba(255,77,0,.2); }
+
+.roadmap-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  margin-top: 4px;
+}
+
+.roadmap-phase-title {
+  font-size: var(--ts-sm);
+  font-weight: 700;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.roadmap-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: var(--ts-xs);
+  color: var(--text-muted);
+  padding: 5px 0;
+  border-bottom: 1px solid var(--gray-100);
+  line-height: 1.4;
+}
+.roadmap-item:last-child { border-bottom: none; }
+.roadmap-item::before {
+  content: '→';
+  color: var(--forest);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+@media (max-width: 900px) {
+  .roadmap-track { grid-template-columns: 1fr 1fr; }
+  .roadmap-track::before { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   KPI DASHBOARD
+═══════════════════════════════════════════════════════════════════ */
+.kpi-dash {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+}
+
+.kpi-tile {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px;
+  text-align: center;
+  transition: transform .18s;
+  position: relative;
+  overflow: hidden;
+}
+.kpi-tile:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.kpi-tile::before {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--forest), var(--mint));
+}
+
+.kpi-value {
+  font-size: var(--ts-2xl);
+  font-weight: 900;
+  letter-spacing: -.03em;
+  color: var(--deep);
+  line-height: 1;
+}
+
+.kpi-name {
+  font-size: var(--ts-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+.kpi-trend {
+  font-size: var(--ts-xs);
+  font-weight: 700;
+  margin-top: 6px;
+  color: var(--forest);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BRAND CATEGORY DISPLAY
+═══════════════════════════════════════════════════════════════════ */
+.brand-cat {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-cat-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  font-size: var(--ts-xl);
+  font-weight: 900;
+  margin-bottom: 12px;
+  color: var(--white);
+}
+.brand-cat-badge.catA { background: linear-gradient(135deg, #003A32, #266A56); }
+.brand-cat-badge.catB { background: linear-gradient(135deg, #1e3a5f, #2563eb); }
+.brand-cat-badge.catC { background: linear-gradient(135deg, #3b0764, #7c3aed); }
+.brand-cat-badge.catD { background: linear-gradient(135deg, #431407, #c2410c); }
+.brand-cat-badge.catE { background: linear-gradient(135deg, #1c1917, #57534e); }
+
+.brand-cat-label {
+  font-size: var(--ts-xs);
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.brand-cat-title {
+  font-size: var(--ts-md);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.brand-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.brand-chip {
+  font-size: var(--ts-xs);
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--r-sm);
+  background: var(--gray-100);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.intensity-bar {
+  margin-top: 12px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--gray-100);
+  overflow: hidden;
+}
+.intensity-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--forest), var(--mint));
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   STRATEGIC FLOW / OPERATIVE MODEL
+═══════════════════════════════════════════════════════════════════ */
+.op-role {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px;
+  transition: box-shadow .18s;
+}
+.op-role:hover { box-shadow: var(--shadow-md); }
+
+.op-role-name {
+  font-size: var(--ts-sm);
+  font-weight: 700;
+  color: var(--deep);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.op-role-name::before {
+  content: '';
+  width: 3px; height: 16px;
+  border-radius: 2px;
+  background: var(--forest);
+  flex-shrink: 0;
+}
+
+.op-tasks li {
+  font-size: var(--ts-xs);
+  color: var(--text-muted);
+  padding: 3px 0;
+  list-style: none;
+  padding-left: 12px;
+  position: relative;
+  line-height: 1.5;
+}
+.op-tasks li::before {
+  content: '·';
+  position: absolute; left: 0;
+  color: var(--forest);
+  font-weight: 700;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RENOVATION TIMELINE
+═══════════════════════════════════════════════════════════════════ */
+.renov-track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.renov-step {
+  padding: 20px 16px;
+  text-align: center;
+  position: relative;
+}
+.renov-step::after {
+  content: '→';
+  position: absolute;
+  right: -8px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 14px;
+  z-index: 1;
+}
+.renov-step:last-child::after { display: none; }
+
+.rs-1 { background: var(--deep); }
+.rs-2 { background: var(--forest); }
+.rs-3 { background: #16a34a; }
+.rs-4 { background: var(--fire); }
+
+.renov-month {
+  font-size: var(--ts-xs);
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.6);
+  margin-bottom: 4px;
+}
+.renov-name {
+  font-size: var(--ts-md);
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.renov-desc { font-size: var(--ts-xs); color: rgba(255,255,255,.7); line-height: 1.4; }
+
+@media (max-width: 700px) {
+  .renov-track { grid-template-columns: 1fr 1fr; }
+  .renov-step::after { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   INFO BOX / CALLOUT
+═══════════════════════════════════════════════════════════════════ */
+.callout {
+  border-radius: var(--r-md);
+  padding: 16px 20px;
+  border-left: 4px solid;
+  margin: 16px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.callout.info  { background: rgba(59,130,246,.07); border-color: #3b82f6; }
+.callout.warn  { background: rgba(255,77,0,.07); border-color: var(--fire); }
+.callout.success{ background: rgba(38,106,86,.07); border-color: var(--forest); }
+.callout.philosophy { background: var(--deep); border-color: var(--mint); }
+
+.callout-icon { font-size: 20px; flex-shrink: 0; }
+.callout-body { flex: 1; }
+.callout-title { font-size: var(--ts-sm); font-weight: 700; margin-bottom: 4px; color: var(--text); }
+.callout.philosophy .callout-title { color: var(--mint); }
+.callout.philosophy .callout-text  { color: rgba(207,221,192,.85); }
+.callout-text  { font-size: var(--ts-sm); color: var(--text-muted); line-height: 1.55; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   INTEL ROLE DIAGRAM
+═══════════════════════════════════════════════════════════════════ */
+.intel-center {
+  background: linear-gradient(135deg, var(--deep), var(--forest));
+  border-radius: 50%;
+  width: 140px; height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 3px solid var(--mint);
+  margin: 0 auto;
+  box-shadow: 0 0 40px rgba(147,251,184,.3);
+}
+
+.intel-spokes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.intel-spoke {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 8px 14px;
+  font-size: var(--ts-xs);
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+  transition: background .15s;
+}
+.intel-spoke:hover { background: rgba(38,106,86,.07); border-color: var(--forest); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   MINI CHART BAR
+═══════════════════════════════════════════════════════════════════ */
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 80px;
+  padding-bottom: 4px;
+}
+.bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+.bar-fill {
+  width: 100%;
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
+  min-height: 4px;
+  transition: height .6s ease-out;
+}
+.bar-lbl { font-size: 9px; font-weight: 600; color: var(--text-muted); margin-top: 4px; white-space: nowrap; }
+.bar-val { font-size: 10px; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   PHILOSOPHY NOTE
+═══════════════════════════════════════════════════════════════════ */
+.philosophy-box {
+  background: var(--deep);
+  border: 1px solid rgba(147,251,184,.3);
+  border-radius: var(--r-lg);
+  padding: 28px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.philosophy-box::before {
+  content: '"';
+  position: absolute;
+  right: 20px; top: -10px;
+  font-size: 120px;
+  color: rgba(147,251,184,.08);
+  font-family: Georgia, serif;
+  font-weight: 900;
+  line-height: 1;
+  pointer-events: none;
+}
+.philosophy-text {
+  font-size: var(--ts-xl);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.5;
+  max-width: 720px;
+}
+.philosophy-text em {
+  font-style: normal;
+  color: var(--mint);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   SPACING UTILITIES
+═══════════════════════════════════════════════════════════════════ */
+.mt-4  { margin-top: 4px; }
+.mt-8  { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
+.mt-16 { margin-top: 16px; }
+.mt-20 { margin-top: 20px; }
+.mt-24 { margin-top: 24px; }
+.mt-32 { margin-top: 32px; }
+.mt-40 { margin-top: 40px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.gap-16 { gap: 16px; }
+.gap-24 { gap: 24px; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--ts-xs);
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: var(--gray-100);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.chip.green { background: rgba(38,106,86,.1); color: var(--forest); border-color: rgba(38,106,86,.2); }
+.chip.fire  { background: rgba(255,77,0,.1); color: var(--fire); border-color: rgba(255,77,0,.2); }
+.chip.blue  { background: rgba(37,99,235,.1); color: #2563eb; border-color: rgba(37,99,235,.2); }
+.chip.purple{ background: rgba(124,58,237,.1); color: #7c3aed; border-color: rgba(124,58,237,.2); }
+
+.divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+/* ═══════════════════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════════════════ */
+.site-footer {
+  background: var(--deep);
+  border-top: 1px solid rgba(147,251,184,.2);
+  padding: 32px 48px;
+  text-align: center;
+  margin-top: 60px;
+}
+.site-footer p {
+  font-size: var(--ts-xs);
+  color: rgba(207,221,192,.5);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SITE HEADER
+═══════════════════════════════════════════════════════════════════ -->
+<header class="site-header">
+  <div class="site-logo">
+    <div class="logo-mark">CL</div>
+    <div class="logo-text">
+      Programa Estratégico
+      <span>Ciclo de Vida &amp; Fidelización Automotriz</span>
+    </div>
+  </div>
+  <div class="header-badge">Versión 1.0 · 2026</div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB NAVIGATION
+═══════════════════════════════════════════════════════════════════ -->
+<nav class="nav-wrapper">
+  <div class="tab-nav" id="tabNav">
+    <button class="tab-btn active" data-tab="t01"><span class="tab-num">1</span>Resumen Ejecutivo</button>
+    <button class="tab-btn" data-tab="t02"><span class="tab-num">2</span>Diagnóstico</button>
+    <button class="tab-btn" data-tab="t03"><span class="tab-num">3</span>Modelo Estratégico</button>
+    <button class="tab-btn" data-tab="t04"><span class="tab-num">4</span>Segmentación</button>
+    <button class="tab-btn" data-tab="t05"><span class="tab-num">5</span>Marcas</button>
+    <button class="tab-btn" data-tab="t06"><span class="tab-num">6</span>Cuadrantes</button>
+    <button class="tab-btn" data-tab="t07"><span class="tab-num">7</span>Customer Journey</button>
+    <button class="tab-btn" data-tab="t08"><span class="tab-num">8</span>Touchpoints Transac.</button>
+    <button class="tab-btn" data-tab="t09"><span class="tab-num">9</span>Touchpoints Relac.</button>
+    <button class="tab-btn" data-tab="t10"><span class="tab-num">10</span>Beneficios</button>
+    <button class="tab-btn" data-tab="t11"><span class="tab-num">11</span>Renovación Inteligente</button>
+    <button class="tab-btn" data-tab="t12"><span class="tab-num">12</span>Modelo Operativo</button>
+    <button class="tab-btn" data-tab="t13"><span class="tab-num">13</span>Procesos &amp; Tech</button>
+    <button class="tab-btn" data-tab="t14"><span class="tab-num">14</span>KPIs</button>
+    <button class="tab-btn" data-tab="t15"><span class="tab-num">15</span>Roadmap</button>
+  </div>
+</nav>
+
+<main class="main-content">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 01 – RESUMEN EJECUTIVO
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel active" id="t01">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Programa Estratégico · Automotriz</div>
+    <h1 class="hero-title">Gestión del <em>Ciclo de Vida</em> y Fidelización de Clientes</h1>
+    <p class="hero-desc">Un modelo integral que extiende relaciones, incrementa el LTV y captura el valor completo del ciclo de compra automotriz a través de tres unidades de negocio.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-val accent">54%</span>
+        <span class="hero-stat-label">Margen generado por VIP+Oro</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val">21%</span>
+        <span class="hero-stat-label">Clientes VIP+Oro en base total</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val fire">+58%</span>
+        <span class="hero-stat-label">Incremento LTV al subir a VIP</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val accent">63%</span>
+        <span class="hero-stat-label">Retención Postventa Año 1</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val fire">28%</span>
+        <span class="hero-stat-label">Retención Postventa Año 3</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-body">
+    <div class="section-title-group">
+      <div class="section-eyebrow">¿Qué es este programa?</div>
+      <h2 class="section-title">Una estrategia de valor para el ciclo completo</h2>
+      <p class="section-lead">El programa actúa sobre tres unidades de negocio —VN, VU y Postventa— utilizando la segmentación de valor como motor de priorización, personalización y gestión comercial.</p>
+    </div>
+
+    <div class="grid-4 mb-24">
+      <div class="metric-card green">
+        <div class="metric-val pct" style="--pct:47">47</div>
+        <div class="metric-label">Tasa de cierre VN con segmento vs total</div>
+        <div class="metric-delta up">↑ 38% vs tasa base</div>
+      </div>
+      <div class="metric-card green">
+        <div class="metric-val pct" style="--pct:11">11.1</div>
+        <div class="metric-label">Tasa de cierre VU con segmento</div>
+        <div class="metric-delta up">↑ 40% vs tasa base</div>
+      </div>
+      <div class="metric-card fire">
+        <div class="metric-val" style="font-size:2rem">$628K</div>
+        <div class="metric-label">Incremento LTV Plata → Oro</div>
+        <div class="metric-delta up">+37% LTV</div>
+      </div>
+      <div class="metric-card fire">
+        <div class="metric-val" style="font-size:2rem">$1.35M</div>
+        <div class="metric-label">Incremento LTV Oro → VIP</div>
+        <div class="metric-delta up">+58% LTV</div>
+      </div>
+    </div>
+
+    <div class="grid-3 mb-24">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon green">🎯</div>
+          <div><div class="card-title">Objetivo Central</div><div class="card-subtitle">Propuesta estratégica</div></div>
+        </div>
+        <div class="card-body">
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px">
+            <li style="display:flex;gap:8px;align-items:flex-start;font-size:var(--ts-sm)"><span style="color:var(--forest);font-weight:700;flex-shrink:0">→</span>Extender el ciclo de vida del cliente</li>
+            <li style="display:flex;gap:8px;align-items:flex-start;font-size:var(--ts-sm)"><span style="color:var(--forest);font-weight:700;flex-shrink:0">→</span>Incrementar el Lifetime Value (LTV)</li>
+            <li style="display:flex;gap:8px;align-items:flex-start;font-size:var(--ts-sm)"><span style="color:var(--forest);font-weight:700;flex-shrink:0">→</span>Capturar renovaciones de vehículo</li>
+            <li style="display:flex;gap:8px;align-items:flex-start;font-size:var(--ts-sm)"><span style="color:var(--forest);font-weight:700;flex-shrink:0">→</span>Maximizar retención en Postventa</li>
+            <li style="display:flex;gap:8px;align-items:flex-start;font-size:var(--ts-sm)"><span style="color:var(--forest);font-weight:700;flex-shrink:0">→</span>Potenciar ventas complementarias</li>
+            <li style="display:flex;gap:8px;align-items:flex-start;font-size:var(--ts-sm)"><span style="color:var(--forest);font-weight:700;flex-shrink:0">→</span>Optimizar ROI de marketing</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon mint">🏢</div>
+          <div><div class="card-title">Tres Unidades de Negocio</div><div class="card-subtitle">Visión integrada</div></div>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:12px">
+          <div style="background:rgba(38,106,86,.07);border:1px solid rgba(38,106,86,.2);border-radius:var(--r-sm);padding:12px">
+            <div style="font-weight:700;font-size:var(--ts-sm);color:var(--forest);margin-bottom:4px">🚗 Vehículos Nuevos (VN)</div>
+            <div style="font-size:var(--ts-xs);color:var(--text-muted)">Cierre con segmento: 4,7% · Total: 3,4% · Solo 6,7% ventas a clientes con segmento</div>
+          </div>
+          <div style="background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.18);border-radius:var(--r-sm);padding:12px">
+            <div style="font-weight:700;font-size:var(--ts-sm);color:#2563eb;margin-bottom:4px">🔑 Vehículos Usados (VU)</div>
+            <div style="font-size:var(--ts-xs);color:var(--text-muted)">Cierre con segmento: 11,1% · Total: 7,9% · Solo 11,1% ventas a clientes con segmento</div>
+          </div>
+          <div style="background:rgba(124,58,237,.06);border:1px solid rgba(124,58,237,.18);border-radius:var(--r-sm);padding:12px">
+            <div style="font-weight:700;font-size:var(--ts-sm);color:#7c3aed;margin-bottom:4px">🔧 Postventa (PV)</div>
+            <div style="font-size:var(--ts-xs);color:var(--text-muted)">Retención Año 1: 63% · Retención Año 3: 28% · Caída de 35 puntos en 2 años</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon gold">⚙️</div>
+          <div><div class="card-title">Cuatro Motores</div><div class="card-subtitle">Estructura del programa</div></div>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;gap:10px;align-items:center">
+            <div style="width:32px;height:32px;background:linear-gradient(135deg,var(--deep),var(--forest));border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--mint);font-weight:800;font-size:14px;flex-shrink:0">1</div>
+            <div><div style="font-weight:700;font-size:var(--ts-sm)">Retener</div><div style="font-size:var(--ts-xs);color:var(--text-muted)">Ecosistema Postventa</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <div style="width:32px;height:32px;background:linear-gradient(135deg,#1e3a5f,#2563eb);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:14px;flex-shrink:0">2</div>
+            <div><div style="font-weight:700;font-size:var(--ts-sm)">Renovar</div><div style="font-size:var(--ts-xs);color:var(--text-muted)">Próxima compra</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <div style="width:32px;height:32px;background:linear-gradient(135deg,#3b0764,#7c3aed);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:14px;flex-shrink:0">3</div>
+            <div><div style="font-weight:700;font-size:var(--ts-sm)">Crecer</div><div style="font-size:var(--ts-xs);color:var(--text-muted)">Movilidad de segmentos</div></div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center">
+            <div style="width:32px;height:32px;background:linear-gradient(135deg,#431407,var(--fire));border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:14px;flex-shrink:0">4</div>
+            <div><div style="font-weight:700;font-size:var(--ts-sm)">Activar</div><div style="font-size:var(--ts-xs);color:var(--text-muted)">Presencia emocional</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="philosophy-box">
+      <div class="philosophy-text">La segmentación es <em>exclusivamente interna</em>. Nunca se expone al cliente su categoría. Se utiliza para priorizar, personalizar y gestionar, maximizando el valor sin alterar la percepción de trato igualitario.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 02 – DIAGNÓSTICO Y OPORTUNIDADES
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="t02">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Diagnóstico Estratégico</div>
+    <h1 class="hero-title">Brechas y <em>Oportunidades</em> de Valor</h1>
+    <p class="hero-desc">Siete problemas críticos identificados que representan oportunidades de crecimiento significativas para el negocio.</p>
+  </div>
+  <div class="section-body">
+    <div class="section-title-group">
+      <div class="section-eyebrow">Problemas Identificados</div>
+      <h2 class="section-title">Los 7 desafíos estratégicos del negocio</h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:40px">
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-body">
+          <div class="callout-title">P1 · No existe una estrategia formal de renovación de clientes</div>
+          <div class="callout-text">El ciclo de 4 años no tiene una arquitectura de contactos planificada. Se pierden oportunidades de renovación sin un modelo proactivo de acercamiento entre los 30 y 48 meses.</div>
+        </div>
+      </div>
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-body">
+          <div class="callout-title">P2 · Los segmentos de valor no se utilizan sistemáticamente en la gestión comercial</div>
+          <div class="callout-text">Solo el 6,7% de ventas VN y 11,1% de ventas VU provienen de clientes con segmento. La inteligencia de clientes existe pero no se activa en el proceso comercial.</div>
+        </div>
+      </div>
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-body">
+          <div class="callout-title">P3 · Clientes VIP y Oro con tasas de cierre por debajo de su potencial</div>
+          <div class="callout-text">VN 4,7% y VU 11,1% son superiores al promedio, pero representan una fracción pequeña del total. Hay un gap enorme entre el potencial de conversión y la conversión efectiva.</div>
+        </div>
+      </div>
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-body">
+          <div class="callout-title">P4 · Toyota, Lexus y Mitsubishi: fuerte caída entre Año 1 y Año 3</div>
+          <div class="callout-text">Retención inicial buena, pero pérdida severa hacia el tercer año. Indica migración a talleres independientes en el período de menor urgencia. Necesita intervención en Año 2.</div>
+        </div>
+      </div>
+      <div class="callout warn">
+        <div class="callout-icon">⚠️</div>
+        <div class="callout-body">
+          <div class="callout-title">P5 · Ford y Subaru: retención inicial baja</div>
+          <div class="callout-text">El problema comienza desde el primer contacto post-entrega. El onboarding es débil y la primera mantención no se garantiza. Fuga temprana con alto costo de recuperación.</div>
+        </div>
+      </div>
+      <div class="callout info">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <div class="callout-title">P6 · Gran oportunidad: aumentar ventas desde clientes conocidos</div>
+          <div class="callout-text">Con una base de clientes activos y con historial, la tasa de conversión sobre clientes conocidos supera significativamente a la de prospección fría. El potencial no capturado es sustancial.</div>
+        </div>
+      </div>
+      <div class="callout info">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body">
+          <div class="callout-title">P7 · Movilidad de segmentos como palanca de valor</div>
+          <div class="callout-text">Mover un cliente de Plata a Oro genera +$628.000 en LTV. Mover de Oro a VIP genera +$1.355.000. Si un 10% de los clientes Plata escala a Oro, el impacto económico es transformacional.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-title-group mt-32">
+      <div class="section-eyebrow">Datos clave</div>
+      <h2 class="section-title">Retención Postventa: La brecha crítica</h2>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon fire">📉</div>
+          <div><div class="card-title">Caída de Retención por Año</div><div class="card-subtitle">Clientes que realizan mantención antes de cada aniversario</div></div>
+        </div>
+        <div class="card-body">
+          <div class="progress-row">
+            <span class="progress-label">Año 1</span>
+            <div class="progress-bar-wrap"><div class="progress-bar" style="width:63%"></div></div>
+            <span class="progress-val">63%</span>
+          </div>
+          <div class="progress-row">
+            <span class="progress-label">Año 2</span>
+            <div class="progress-bar-wrap"><div class="progress-bar fire" style="width:45%"></div></div>
+            <span class="progress-val">~45%</span>
+          </div>
+          <div class="progress-row">
+            <span class="progress-label">Año 3</span>
+            <div class="progress-bar-wrap"><div class="progress-bar fire" style="width:28%"></div></div>
+            <span class="progress-val">28%</span>
+          </div>
+          <div class="callout warn mt-16">
+            <div class="callout-icon">⚡</div>
+            <div class="callout-body">
+              <div class="callout-title">Pérdida de 35 puntos en 2 años</div>
+              <div class="callout-text">Cada punto de retención recuperado representa ingresos directos de mantención más el efecto positivo en probabilidad de renovación.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon green">📊</div>
+          <div><div class="card-title">Impacto de la Segmentación</div><div class="card-subtitle">Diferencial de tasa de cierre</div></div>
+        </div>
+        <div class="card-body">
+          <div style="margin-bottom:20px">
+            <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px">Vehículos Nuevos (VN)</div>
+            <div style="display:flex;gap:12px;align-items:flex-end">
+              <div style="flex:1">
+                <div style="background:var(--gray-100);border-radius:4px 4px 0 0;height:40px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:var(--text-muted)">3,4%</div>
+                <div style="text-align:center;font-size:var(--ts-xs);color:var(--text-muted);padding:4px 0">Total</div>
+              </div>
+              <div style="flex:1">
+                <div style="background:linear-gradient(180deg,var(--forest),var(--deep));border-radius:4px 4px 0 0;height:56px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:var(--mint)">4,7%</div>
+                <div style="text-align:center;font-size:var(--ts-xs);color:var(--forest);font-weight:700;padding:4px 0">Con Segmento</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px">Vehículos Usados (VU)</div>
+            <div style="display:flex;gap:12px;align-items:flex-end">
+              <div style="flex:1">
+                <div style="background:var(--gray-100);border-radius:4px 4px 0 0;height:40px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:var(--text-muted)">7,9%</div>
+                <div style="text-align:center;font-size:var(--ts-xs);color:var(--text-muted);padding:4px 0">Total</div>
+              </div>
+              <div style="flex:1">
+                <div style="background:linear-gradient(180deg,var(--forest),var(--deep));border-radius:4px 4px 0 0;height:70px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;color:var(--mint)">11,1%</div>
+                <div style="text-align:center;font-size:var(--ts-xs);color:var(--forest);font-weight:700;padding:4px 0">Con Segmento</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 03 – MODELO ESTRATÉGICO
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="t03">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Modelo Estratégico</div>
+    <h1 class="hero-title">Los <em>Cuatro Motores</em> del Programa</h1>
+    <p class="hero-desc">Cuatro ejes estratégicos que operan de manera coordinada sobre las tres unidades de negocio.</p>
+  </div>
+  <div class="section-body">
+    <div class="grid-2 mb-24">
+      <div class="motor-card">
+        <div class="motor-header">
+          <div class="motor-number">1</div>
+          <div class="motor-label">Motor Estratégico</div>
+          <div class="motor-name">Retener</div>
+        </div>
+        <div class="motor-body">
+          <div style="font-size:var(--ts-sm);font-weight:600;color:var(--text);margin-bottom:12px">Mantener al cliente dentro del ecosistema de Postventa</div>
+          <div style="font-size:var(--ts-xs);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">KPIs</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+            <span class="chip green">Retención Año 1</span>
+            <span class="chip green">Retención Año 2</span>
+            <span class="chip green">Retención Año 3</span>
+            <span class="chip green">Frecuencia visitas</span>
+            <span class="chip green">Ingreso mantenciones</span>
+          </div>
+          <div style="font-size:var(--ts-xs);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">Foco Principal de Marcas</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="chip fire">Ford</span>
+            <span class="chip fire">Subaru</span>
+            <span class="chip">Toyota</span>
+            <span class="chip">Lexus</span>
+            <span class="chip">Mitsubishi</span>
+          </div>
+        </div>
+      </div>
+      <div class="motor-card">
+        <div class="motor-header" style="background:linear-gradient(135deg,#1e3a5f 0%,#2563eb 100%)">
+          <div class="motor-number">2</div>
+          <div class="motor-label">Motor Estratégico</div>
+          <div class="motor-name">Renovar</div>
+        </div>
+        <div class="motor-body">
+          <div style="font-size:var(--ts-sm);font-weight:600;color:var(--text);margin-bottom:12px">Capturar la siguiente compra del cliente en el momento óptimo</div>
+          <div style="font-size:var(--ts-xs);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">KPIs</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+            <span class="chip blue">Renovación VN</span>
+            <span class="chip blue">Renovación VU</span>
+            <span class="chip blue">Conversión existentes</span>
+            <span class="chip blue">Uso de VPP</span>
+          </div>
+          <div style="font-size:var(--ts-xs);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">Foco de Clientes</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="chip blue">30-48 meses desde compra</span>
+            <span class="seg-badge seg-vip">VIP</span>
+            <span class="seg-badge seg-oro">Oro</span>
+          </div>
+        </div>
+      </div>
+      <div class="motor-card">
+        <div class="motor-header" style="background:linear-gradient(135deg,#3b0764 0%,#7c3aed 100%)">
+          <div class="motor-number">3</div>
+          <div class="motor-label">Motor Estratégico</div>
+          <div class="motor-name">Crecer</div>
+        </div>
+        <div class="motor-body">
+          <div style="font-size:var(--ts-sm);font-weight:600;color:var(--text);margin-bottom:12px">Mover clientes entre segmentos, incrementando el LTV promedio de la base</div>
+          <div style="font-size:var(--ts-xs);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">KPIs</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+            <span class="chip purple">Movilidad segmentos</span>
+            <span class="chip purple">Incremento LTV</span>
+            <span class="chip purple">Penet. Financiamiento</span>
+            <span class="chip purple">Penet. Seguros</span>
+            <span class="chip purple">Penet. Accesorios</span>
+            <span class="chip purple">VPP · MPP</span>
+          </div>
+          <div style="background:rgba(124,58,237,.07);border:1px solid rgba(124,58,237,.2);border-radius:var(--r-sm);padding:10px">
+            <div style="font-size:var(--ts-xs);color:#7c3aed">Plata → Oro: <strong>+$628.000 LTV</strong> &nbsp;·&nbsp; Oro → VIP: <strong>+$1.355.000 LTV</strong></div>
+          </div>
+        </div>
+      </div>
+      <div class="motor-card">
+        <div class="motor-header" style="background:linear-gradient(135deg,#431407 0%,var(--fire) 100%)">
+          <div class="motor-number">4</div>
+          <div class="motor-label">Motor Estratégico</div>
+          <div class="motor-name">Activar</div>
+        </div>
+        <div class="motor-body">
+          <div style="font-size:var(--ts-sm);font-weight:600;color:var(--text);margin-bottom:12px">Mantener presencia emocional y relacional con el cliente en todo momento</div>
+          <div style="font-size:var(--ts-xs);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px">KPIs</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="chip fire">Aperturas</span>
+            <span class="chip fire">Participación eventos</span>
+            <span class="chip fire">Referidos</span>
+            <span class="chip fire">NPS</span>
+            <span class="chip fire">Actividades</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title-group mt-40">
+      <div class="section-eyebrow">Priorización Comercial</div>
+      <h2 class="section-title">Matriz de Priorización por Segmento × Marca</h2>
+      <p class="section-lead">Esta matriz determina la intensidad de inversión, frecuencia de contacto y tipo de beneficios asignados a cada combinación.</p>
+    </div>
+
+    <div class="table-wrap mb-24">
+      <table>
+        <thead>
+          <tr>
+            <th>Segmento</th>
+            <th>Categoría de Marca</th>
+            <th>Prioridad</th>
+            <th>Inversión Comercial</th>
+            <th>Frecuencia de Contacto</th>
+            <th>Tipo de Beneficios</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="seg-badge seg-vip">VIP</span></td>
+            <td><span class="chip green">A · B · C</span></td>
+            <td><span class="priority maxima">Máxima</span></td>
+            <td>Sin límite definido</td>
+            <td>Contacto proactivo mensual</td>
+            <td>Experiencial · Premium · Exclusivo</td>
+          </tr>
+          <tr>
+            <td><span class="seg-badge seg-oro">Oro</span></td>
+            <td><span class="chip green">A · B · C</span></td>
+            <td><span class="priority muy-alta">Muy Alta</span></td>
+            <td>Alta inversión personalizada</td>
+            <td>Contacto bimestral</td>
+            <td>Premium · Descuentos preferentes</td>
+          </tr>
+          <tr>
+            <td><span class="seg-badge seg-plata">Plata</span></td>
+            <td><span class="chip green">A · B · C</span></td>
+            <td><span class="priority alta">Alta</span></td>
+            <td>Inversión estándar-alta</td>
+            <td>Contacto trimestral</td>
+            <td>Estándar mejorado</td>
+          </tr>
+          <tr>
+            <td><span class="seg-badge seg-vip">VIP</span></td>
+            <td><span class="chip">D · E</span></td>
+            <td><span class="priority alta">Alta</span></td>
+            <td>Inversión estándar-alta</td>
+            <td>Contacto bimestral</td>
+            <td>Premium adaptado</td>
+          </tr>
+          <tr>
+            <td><span class="seg-badge seg-oro">Oro</span></td>
+            <td><span class="chip">D · E</span></td>
+            <td><span class="priority media">Media</span></td>
+            <td>Inversión moderada</td>
+            <td>Contacto trimestral</td>
+            <td>Estándar mejorado</td>
+          </tr>
+          <tr>
+            <td><span class="seg-badge seg-plata">Plata</span></td>
+            <td><span class="chip">D · E</span></td>
+            <td><span class="priority media">Media</span></td>
+            <td>Inversión controlada</td>
+            <td>Contacto cuatrimestral</td>
+            <td>Estándar</td>
+          </tr>
+          <tr>
+            <td><span class="seg-badge seg-bronce">Bronce</span></td>
+            <td><span class="chip">Todas</span></td>
+            <td><span class="priority baja">Baja</span></td>
+            <td>Inversión mínima · Automatizado</td>
+            <td>Campaña masiva</td>
+            <td>Básicos</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 04 – SEGMENTACIÓN DE CLIENTES
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="t04">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Inteligencia de Clientes</div>
+    <h1 class="hero-title">Segmentación de <em>Valor</em></h1>
+    <p class="hero-desc">Modelo de segmentación basado en margen de contribución y frecuencia de transacciones, con ventana de análisis de 4 años y actualización mensual.</p>
+  </div>
+  <div class="section-body">
+    <div class="callout philosophy">
+      <div class="callout-icon">🔒</div>
+      <div class="callout-body">
+        <div class="callout-title">Principio Fundamental del Programa</div>
+        <div class="callout-text">La segmentación es de uso <strong>exclusivamente interno</strong>. Nunca se informa al cliente a qué segmento pertenece. Los segmentos VIP, Oro, Plata y Bronce son herramientas de gestión para priorización, personalización, Customer Care, retención, renovación, marketing y optimización de inversión.</div>
+      </div>
+    </div>
+
+    <div class="mt-32 mb-16">
+      <div class="section-title-group">
+        <div class="section-eyebrow">Criterios de Segmentación</div>
+        <h2 class="section-title">Variables que determinan el segmento</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-body" style="text-align:center;padding:28px">
+            <div style="font-size:2.5rem;margin-bottom:12px">💰</div>
+            <div style="font-size:var(--ts-xl);font-weight:800;color:var(--deep);margin-bottom:6px">Margen de Contribución</div>
+            <div style="font-size:var(--ts-sm);color:var(--text-muted)">Aporte económico acumulado del cliente en todas las unidades de negocio</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body" style="text-align:center;padding:28px">
+            <div style="font-size:2.5rem;margin-bottom:12px">🔄</div>
+            <div style="font-size:var(--ts-xl);font-weight:800;color:var(--deep);margin-bottom:6px">Frecuencia de Transacciones</div>
+            <div style="font-size:var(--ts-sm);color:var(--text-muted)">Número de transacciones en VN, VU y Postventa en la ventana de análisis</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body" style="text-align:center;padding:28px">
+            <div style="font-size:2.5rem;margin-bottom:12px">📅</div>
+            <div style="font-size:var(--ts-xl);font-weight:800;color:var(--deep);margin-bottom:6px">Ventana de 4 Años</div>
+            <div style="font-size:var(--ts-sm);color:var(--text-muted)">Análisis en las tres unidades. Actualización mensual del segmento</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-title-group mt-32">
+      <div class="section-eyebrow">Los Cuatro Segmentos</div>
+      <h2 class="section-title">Jerarquía de valor del cliente</h2>
+    </div>
+
+    <div class="grid-2 mb-24">
+      <div style="background:linear-gradient(135deg,#1a0533,#4c1d95);border-radius:var(--r-lg);padding:28px;color:white;position:relative;overflow:hidden">
+        <div style="position:absolute;right:-20px;top:-20px;width:120px;height:120px;background:rgba(196,181,253,.08);border-radius:50%"></div>
+        <div class="seg-badge seg-vip" style="margin-bottom:16px">VIP</div>
+        <div style="font-size:var(--ts-2xl);font-weight:900;letter-spacing:-.02em;margin-bottom:8px">Clientes Más Valiosos</div>
+        <div style="font-size:var(--ts-sm);color:rgba(196,181,253,.8);line-height:1.6;margin-bottom:16px">Mayor margen y frecuencia. Representan el núcleo del negocio y requieren la gestión más especializada.</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px">
+            <div style="font-size:1.5rem;font-weight:900;color:#c4b5fd">21%</div>
+            <div style="font-size:var(--ts-xs);color:rgba(196,181,253,.7)">VIP+Oro = % base</div>
+          </div>
+          <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px">
+            <div style="font-size:1.5rem;font-weight:900;color:#c4b5fd">54%</div>
+            <div style="font-size:var(--ts-xs);color:rgba(196,181,253,.7)">VIP+Oro = % margen</div>
+          </div>
+        </div>
+      </div>
+      <div style="background:linear-gradient(135deg,#451a03,#92400e);border-radius:var(--r-lg);padding:28px;color:white;position:relative;overflow:hidden">
+        <div style="position:absolute;right:-20px;top:-20px;width:120px;height:120px;background:rgba(252,211,77,.06);border-radius:50%"></div>
+        <div class="seg-badge seg-oro" style="margin-bottom:16px">Oro</div>
+        <div style="font-size:var(--ts-2xl);font-weight:900;letter-spacing:-.02em;margin-bottom:8px">Clientes Premium</div>
+        <div style="font-size:var(--ts-sm);color:rgba(252,211,77,.8);line-height:1.6;margin-bottom:16px">Alto valor. Candidatos prioritarios para ascenso a VIP. Mejor tasa de cierre que promedio.</div>
+        <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px">
+          <div style="font-size:var(--ts-sm);font-weight:700;color:#fcd34d">Ascenso Oro → VIP</div>
+          <div style="font-size:1.5rem;font-weight:900;color:white;margin:4px 0">+$1.355.000</div>
+          <div style="font-size:var(--ts-xs);color:rgba(252,211,77,.7)">Incremento LTV estimado (+58%)</div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-2 mb-24">
+      <div style="background:linear-gradient(135deg,#1e2a3a,#334155);border-radius:var(--r-lg);padding:28px;color:white">
+        <div class="seg-badge seg-plata" style="margin-bottom:16px">Plata</div>
+        <div style="font-size:var(--ts-xl);font-weight:900;letter-spacing:-.02em;margin-bottom:8px">Clientes en Desarrollo</div>
+        <div style="font-size:var(--ts-sm);color:rgba(203,213,225,.8);line-height:1.6;margin-bottom:16px">Valor medio. Enfoque en incrementar frecuencia y margen para ascenso a Oro.</div>
+        <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:12px">
+          <div style="font-size:var(--ts-sm);font-weight:700;color:#cbd5e1">Ascenso Plata → Oro</div>
+          <div style="font-size:1.5rem;font-weight:900;color:white;margin:4px 0">+$628.000</div>
+          <div style="font-size:var(--ts-xs);color:rgba(203,213,225,.7)">Incremento LTV estimado (+37%)</div>
+        </div>
+      </div>
+      <div style="background:linear-gradient(135deg,#1c1410,#44322a);border-radius:var(--r-lg);padding:28px;color:white">
+        <div class="seg-badge seg-bronce" style="margin-bottom:16px">Bronce</div>
+        <div style="font-size:var(--ts-xl);font-weight:900;letter-spacing:-.02em;margin-bottom:8px">Clientes Base</div>
+        <div style="font-size:var(--ts-sm);color:rgba(217,119,6,.8);line-height:1.6">Menor frecuencia y margen. Gestión automatizada y eficiente. Objetivo: activar primera transacción de valor y moverlos hacia Plata.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 05 – CLASIFICACIÓN DE MARCAS
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="t05">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Clasificación Estratégica</div>
+    <h1 class="hero-title">Categorías de <em>Marca</em></h1>
+    <p class="hero-desc">Basada en composición de clientes VIP y Oro. Las categorías A, B y C reciben mayor intensidad de inversión y gestión.</p>
+  </div>
+  <div class="section-body">
+    <div class="callout success">
+      <div class="callout-icon">🎯</div>
+      <div class="callout-body">
+        <div class="callout-title">Principio de Inversión por Categoría</div>
+        <div class="callout-text">Las categorías A, B y C concentran mayor proporción de clientes VIP y Oro, por lo tanto reciben mayor intensidad de inversión, más recursos comerciales y acciones de gestión más sofisticadas. A mayor categoría, mayor ROI esperado por peso invertido.</div>
+      </div>
+    </div>
+
+    <div class="grid-auto mt-32 mb-24">
+      <div class="brand-cat">
+        <div class="brand-cat-badge catA">A</div>
+        <div class="brand-cat-label">Categoría · Mayor Intensidad</div>
+        <div class="brand-cat-title">Premium y Lujo</div>
+        <div class="brand-chips mb-16">
+          <span class="brand-chip">Porsche</span>
+          <span class="brand-chip">Lexus</span>
+          <span class="brand-chip">Land Rover</span>
+          <span class="brand-chip">Volvo</span>
+          <span class="brand-chip">Cupra</span>
+          <span class="brand-chip">Audi</span>
+        </div>
+        <div class="intensity-bar"><div class="intensity-fill" style="width:100%"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px">
+          <span style="font-size:10px;color:var(--text-muted)">Intensidad de gestión</span>
+          <span style="font-size:10px;font-weight:700;color:var(--forest)">Máxima</span>
+        </div>
+      </div>
+      <div class="brand-cat">
+        <div class="brand-cat-badge catB">B</div>
+        <div class="brand-cat-label">Categoría · Alta Intensidad</div>
+        <div class="brand-cat-title">Valor Alto</div>
+        <div class="brand-chips mb-16">
+          <span class="brand-chip">Subaru</span>
+          <span class="brand-chip">Ford</span>
+          <span class="brand-chip">Honda</span>
+          <span class="brand-chip">Ram</span>
+        </div>
+        <div class="intensity-bar"><div class="intensity-fill" style="width:80%"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px">
+          <span style="font-size:10px;color:var(--text-muted)">Intensidad de gestión</span>
+          <span style="font-size:10px;font-weight:700;color:var(--forest)">Alta</span>
+        </div>
+      </div>
+      <div class="brand-cat">
+        <div class="brand-cat-badge catC">C</div>
+        <div class="brand-cat-label">Categoría · Intensidad Estándar-Alta</div>
+        <div class="brand-cat-title">Volumen Relevante</div>
+        <div class="brand-chips mb-16">
+          <span class="brand-chip">Toyota</span>
+          <span class="brand-chip">Mitsubishi</span>
+          <span class="brand-chip">Peugeot</span>
+          <span class="brand-chip">Opel</span>
+          <span class="brand-chip">KGM</span>
+        </div>
+        <div class="intensity-bar"><div class="intensity-fill" style="width:65%"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px">
+          <span style="font-size:10px;color:var(--text-muted)">Intensidad de gestión</span>
+          <span style="font-size:10px;font-weight:700;color:var(--forest)">Estándar-Alta</span>
+        </div>
+      </div>
+      <div class="brand-cat">
+        <div class="brand-cat-badge catD">D</div>
+        <div class="brand-cat-label">Categoría · Intensidad Media</div>
+        <div class="brand-cat-title">Desarrollo</div>
+        <div class="brand-chips mb-16">
+          <span class="brand-chip">Kia</span>
+          <span class="brand-chip">Maxus</span>
+          <span class="brand-chip">Changan</span>
+          <span class="brand-chip">Mazda</span>
+        </div>
+        <div class="intensity-bar"><div class="intensity-fill" style="width:45%"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px">
+          <span style="font-size:10px;color:var(--text-muted)">Intensidad de gestión</span>
+          <span style="font-size:10px;font-weight:700;color:#d97706)">Media</span>
+        </div>
+      </div>
+      <div class="brand-cat">
+        <div class="brand-cat-badge catE">E</div>
+        <div class="brand-cat-label">Categoría · Intensidad Base</div>
+        <div class="brand-cat-title">Acceso Masivo</div>
+        <div class="brand-chips mb-16">
+          <span class="brand-chip">Nissan</span>
+          <span class="brand-chip">MG</span>
+          <span class="brand-chip">Suzuki</span>
+          <span class="brand-chip">Hyundai</span>
+        </div>
+        <div class="intensity-bar"><div class="intensity-fill" style="width:28%"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:4px">
+          <span style="font-size:10px;color:var(--text-muted)">Intensidad de gestión</span>
+          <span style="font-size:10px;font-weight:700;color:var(--gray-500)">Base</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title-group mt-40">
+      <div class="section-eyebrow">Estrategias por Marca</div>
+      <h2 class="section-title">Iniciativas específicas para marcas con desafíos particulares</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon fire">⚡</div>
+          <div>
+            <div class="card-title">Toyota · Lexus · Mitsubishi</div>
+            <div class="card-subtitle">Fuerte caída Año 1 → Año 3</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div style="font-size:var(--ts-sm);color:var(--text-muted);margin-bottom:16px">Problema: Buena retención inicial pero pérdida severa hacia el tercer año. Migración a talleres independientes.</div>
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px">
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--forest);font-weight:700">→</span>Beneficio especial por mantención en Año 2 (brecha más crítica)</li>
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--forest);font-weight:700">→</span>Comunicación diferencial sobre ventajas del taller oficial vs independiente</li>
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--forest);font-weight:700">→</span>Programa de fidelización específico con acumulación de beneficios por visita</li>
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--forest);font-weight:700">→</span>Contacto proactivo a los 14 meses antes del segundo aniversario</li>
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--forest);font-weight:700">→</span>Clínica técnica gratuita para clientes Año 2 como engagement preventivo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon fire">🚨</div>
+          <div>
+            <div class="card-title">Ford · Subaru</div>
+            <div class="card-subtitle">Retención inicial baja desde el primer año</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div style="font-size:var(--ts-sm);color:var(--text-muted);margin-bottom:16px">Problema: La fuga comienza inmediatamente post-entrega. Necesidad crítica de onboarding reforzado.</div>
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px">
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--fire);font-weight:700">→</span>Onboarding reforzado: llamada de bienvenida obligatoria a los 7 días</li>
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--fire);font-weight:700">→</span>Kit de bienvenida diferenciado con guía de mantenciones personalizadas</li>
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--fire);font-weight:700">→</span>Agendar primera mantención en el momento de la entrega del vehículo</li>
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--fire);font-weight:700">→</span>Descuento especial en primera mantención programada</li>
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--fire);font-weight:700">→</span>Seguimiento activo a los 45 días con recordatorio de próxima mantención</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 06 – CUADRANTES DE VALOR
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="t06">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Análisis de Posicionamiento</div>
+    <h1 class="hero-title">Cuadrantes de <em>Valor</em></h1>
+    <p class="hero-desc">Representación visual del posicionamiento de marcas según margen individual y retención, con estrategias de movilización entre cuadrantes.</p>
+  </div>
+  <div class="section-body">
+    <div class="grid-2 mb-24">
+      <!-- Cuadrante 1 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon green">📊</div>
+          <div><div class="card-title">Cuadrante 1: Margen vs Retención</div><div class="card-subtitle">Índice margen (100 = promedio) · Retención (50% = promedio)</div></div>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div style="padding:16px;position:relative">
+            <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;aspect-ratio:1.4;border:2px solid var(--border);border-radius:var(--r-sm);overflow:hidden;position:relative">
+              <!-- Q1 Fiel - top-left (high margin / high retention) -->
+              <div class="q-cell q1" style="order:3;border-radius:4px 0 0 0">
+                <div class="q-sub">Alto Margen · Alta Retención</div>
+                <div class="q-label">Fiel</div>
+                <div class="q-desc">Porsche · Lexus · Volvo · Audi</div>
+              </div>
+              <!-- Q2 Valioso en Riesgo - top-right (high margin / low retention) -->
+              <div class="q-cell q2" style="order:4;border-radius:0 4px 0 0">
+                <div class="q-sub">Alto Margen · Baja Retención</div>
+                <div class="q-label">Valioso en Riesgo</div>
+                <div class="q-desc">Ford · Subaru · Land Rover</div>
+              </div>
+              <!-- Q4 Oportunidad - bottom-left (low margin / high retention) -->
+              <div class="q-cell q4" style="order:1;border-radius:0 0 0 4px">
+                <div class="q-sub">Bajo Margen · Alta Retención</div>
+                <div class="q-label">Oportunidad</div>
+                <div class="q-desc">Toyota · Mitsubishi · KGM</div>
+              </div>
+              <!-- Q3 No Prioritario - bottom-right (low margin / low retention) -->
+              <div class="q-cell q3" style="order:2;border-radius:0 0 4px 0">
+                <div class="q-sub">Bajo Margen · Baja Retención</div>
+                <div class="q-label">No Prioritario</div>
+                <div class="q-desc">Nissan · MG · Suzuki</div>
+              </div>
+              <!-- Center lines -->
+              <div style="position:absolute;top:50%;left:0;right:0;height:2px;background:var(--gray-200);z-index:2"></div>
+              <div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--gray-200);z-index:2"></div>
+              <!-- Center label -->
+              <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:white;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;color:var(--deep);border:1px solid var(--border);z-index:3">100</div>
+            </div>
+            <div style="display:flex;justify-content:center;margin-top:8px;font-size:10px;color:var(--text-muted);font-weight:600;letter-spacing:.04em">ÍNDICE DE MARGEN INDIVIDUAL →</div>
+            <div style="position:absolute;left:8px;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:10px;color:var(--text-muted);font-weight:600;letter-spacing:.04em;white-space:nowrap">RETENCIÓN ↑</div>
+          </div>
+        </div>
+      </div>
+      <!-- Cuadrante 2 -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon fire">📉</div>
+          <div><div class="card-title">Cuadrante 2: Margen vs Δ Retención</div><div class="card-subtitle">Eje vertical: diferencia entre retención Año 1 y Año 3</div></div>
+        </div>
+        <div class="card-body" style="padding:0">
+          <div style="padding:16px;position:relative">
+            <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;aspect-ratio:1.4;border:2px solid var(--border);border-radius:var(--r-sm);overflow:hidden;position:relative">
+              <div class="q-cell q1" style="order:3;border-radius:4px 0 0 0">
+                <div class="q-sub">Alto Margen · Poca Caída</div>
+                <div class="q-label" style="color:var(--forest)">Estable Valioso</div>
+                <div class="q-desc">Porsche · Audi · Cupra</div>
+              </div>
+              <div class="q-cell q2" style="order:4;border-radius:0 4px 0 0">
+                <div class="q-sub">Alto Margen · Gran Caída</div>
+                <div class="q-label" style="color:var(--fire)">Urgencia Crítica</div>
+                <div class="q-desc">Lexus · Mitsubishi · Land Rover</div>
+              </div>
+              <div class="q-cell q4" style="order:1;border-radius:0 0 0 4px">
+                <div class="q-sub">Bajo Margen · Poca Caída</div>
+                <div class="q-label" style="color:#2563eb">Fiel de Base</div>
+                <div class="q-desc">Toyota · KGM · Honda</div>
+              </div>
+              <div class="q-cell q3" style="order:2;border-radius:0 0 4px 0">
+                <div class="q-sub">Bajo Margen · Gran Caída</div>
+                <div class="q-label" style="color:var(--gray-500)">Riesgo Base</div>
+                <div class="q-desc">Subaru · Ford · Nissan</div>
+              </div>
+              <div style="position:absolute;top:50%;left:0;right:0;height:2px;background:var(--gray-200);z-index:2"></div>
+              <div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--gray-200);z-index:2"></div>
+            </div>
+            <div style="display:flex;justify-content:center;margin-top:8px;font-size:10px;color:var(--text-muted);font-weight:600;letter-spacing:.04em">ÍNDICE DE MARGEN INDIVIDUAL →</div>
+            <div style="position:absolute;left:8px;top:50%;transform:translateY(-50%) rotate(-90deg);font-size:10px;color:var(--text-muted);font-weight:600;letter-spacing:.04em;white-space:nowrap">Δ RETENCIÓN (Año1 - Año3) ↑</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title-group mt-32">
+      <div class="section-eyebrow">Estrategias de Movilización</div>
+      <h2 class="section-title">Cómo mover marcas entre cuadrantes</h2>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header"><div class="card-icon fire">🔥</div><div><div class="card-title">Valioso en Riesgo → Fiel</div><div class="card-subtitle">Prioridad: Máxima</div></div></div>
+        <div class="card-body">
+          <div style="font-size:var(--ts-sm);color:var(--text-muted);margin-bottom:12px">Mantener el margen mientras se recupera la retención. Son los clientes más valiosos que están siendo perdidos.</div>
+          <ul class="op-tasks"><li>Onboarding reforzado en primeros 90 días</li><li>Plan de mantenciones prepagadas desde la negociación</li><li>Customer Care dedicado para primeros 12 meses</li><li>Beneficios tangibles por primera mantención puntual</li></ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-icon blue">💡</div><div><div class="card-title">Oportunidad → Fiel</div><div class="card-subtitle">Palanca: Incrementar margen</div></div></div>
+        <div class="card-body">
+          <div style="font-size:var(--ts-sm);color:var(--text-muted);margin-bottom:12px">Ya tienen buena retención. La estrategia es aumentar el ticket y cruzar servicios complementarios.</div>
+          <ul class="op-tasks"><li>Cross-sell activo en cada visita de mantención</li><li>Oferta de accesorios y seguros en Postventa</li><li>Programa VPP para capturar próxima renovación</li><li>Financiamiento en próxima compra</li></ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-icon purple">⬆️</div><div><div class="card-title">No Prioritario → Oportunidad</div><div class="card-subtitle">Estrategia: Activar retención</div></div></div>
+        <div class="card-body">
+          <div style="font-size:var(--ts-sm);color:var(--text-muted);margin-bottom:12px">Campaña de reactivación y beneficios de entrada para establecer el primer vínculo post-venta.</div>
+          <ul class="op-tasks"><li>Campaña de reactivación con beneficio especial</li><li>Recordatorio personalizado de mantención pendiente</li><li>Revisión gratuita como gancho de primer contacto</li><li>Comunicación educativa sobre valor del taller oficial</li></ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-icon green">✅</div><div><div class="card-title">Fiel → Mantener y Crecer</div><div class="card-subtitle">Estrategia: Profundizar relación</div></div></div>
+        <div class="card-body">
+          <div style="font-size:var(--ts-sm);color:var(--text-muted);margin-bottom:12px">No solo mantener el cuadrante, sino maximizar el LTV con servicios de mayor valor y programa de renovación.</div>
+          <ul class="op-tasks"><li>Acceso anticipado a nuevos modelos y lanzamientos</li><li>Programa de renovación inteligente activado a 30 meses</li><li>Eventos exclusivos de marca para fortalecer vínculo</li><li>Referidos activos con beneficios por traer nuevos clientes</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 07 – CUSTOMER JOURNEY
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="t07">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Customer Journey Estratégico</div>
+    <h1 class="hero-title">El Ciclo de <em>4 Años</em></h1>
+    <p class="hero-desc">Cinco ciclos estructurados que cubren desde la captación hasta la renovación, con KPIs, riesgos y responsables definidos.</p>
+  </div>
+  <div class="section-body">
+    <div class="journey-track">
+
+      <!-- Ciclo 0 -->
+      <div class="journey-node">
+        <div class="journey-card">
+          <div class="journey-header">
+            <span class="journey-cycle">Ciclo 0 · Captación a Entrega</span>
+            <span class="journey-period">Pre-Venta</span>
+          </div>
+          <div class="journey-body">
+            <div style="font-size:var(--ts-sm);font-weight:700;color:var(--forest);margin-bottom:12px">Objetivo: Cerrar la venta y sentar las bases de la relación</div>
+            <div class="grid-3">
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Etapas</div>
+                <div style="font-size:var(--ts-xs);display:flex;flex-direction:column;gap:3px">
+                  <span>Captación → Gestión Comercial</span>
+                  <span>Negociación → Cierre</span>
+                  <span>Espera → Entrega</span>
+                </div>
+              </div>
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Riesgo de Fuga</div>
+                <span class="chip">Bajo</span>
+              </div>
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">KPI Principal</div>
+                <span class="chip green">Tasa de Cierre</span>
+              </div>
+            </div>
+            <div style="margin-top:12px">
+              <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Acciones clave</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px">
+                <span class="chip">Priorizar por segmento</span>
+                <span class="chip">Oferta MPP en negociación</span>
+                <span class="chip">Venta de accesorios pre-entrega</span>
+                <span class="chip">Financiamiento integrado</span>
+              </div>
+            </div>
+            <div style="margin-top:8px;font-size:var(--ts-xs);color:var(--text-muted)"><strong>Responsable:</strong> Comercial VN/VU · Inteligencia de Clientes (priorización)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ciclo 1 -->
+      <div class="journey-node">
+        <div class="journey-card">
+          <div class="journey-header">
+            <span class="journey-cycle">Ciclo 1 · 0 a 12 meses</span>
+            <span class="journey-period">Onboarding</span>
+          </div>
+          <div class="journey-body">
+            <div style="font-size:var(--ts-sm);font-weight:700;color:var(--forest);margin-bottom:12px">Objetivo: Garantizar la primera mantención y crear el hábito de Postventa</div>
+            <div class="grid-3">
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Riesgo de Fuga</div>
+                <span class="chip fire">Alto (Ford/Subaru)</span>
+              </div>
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">KPI Principal</div>
+                <span class="chip green">Retención Año 1 (meta: 70%)</span>
+              </div>
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Responsable</div>
+                <span style="font-size:var(--ts-xs)">Postventa · Customer Care</span>
+              </div>
+            </div>
+            <div style="margin-top:12px">
+              <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Acciones clave</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px">
+                <span class="chip">Llamada bienvenida 7 días</span>
+                <span class="chip">Encuesta NPS 15 días</span>
+                <span class="chip">Contacto CC 45 días</span>
+                <span class="chip">Chequeo preventivo 6 meses</span>
+                <span class="chip">Primera mantención 10-12 meses</span>
+                <span class="chip">Aniversario + cumpleaños</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ciclo 2 -->
+      <div class="journey-node">
+        <div class="journey-card">
+          <div class="journey-header">
+            <span class="journey-cycle">Ciclo 2 · 12 a 24 meses</span>
+            <span class="journey-period">Profundización</span>
+          </div>
+          <div class="journey-body">
+            <div style="font-size:var(--ts-sm);font-weight:700;color:var(--forest);margin-bottom:12px">Objetivo: Profundizar la relación y fortalecer el vínculo emocional con la marca</div>
+            <div class="grid-3">
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Riesgo de Fuga</div>
+                <span class="chip fire">Muy Alto (Toyota/Lexus/Mitsubishi)</span>
+              </div>
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">KPI Principal</div>
+                <span class="chip green">Frecuencia visitas</span>
+              </div>
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Responsable</div>
+                <span style="font-size:var(--ts-xs)">Postventa · Marketing · CC</span>
+              </div>
+            </div>
+            <div style="margin-top:12px">
+              <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Acciones clave</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px">
+                <span class="chip">Segunda mantención 22-24 meses</span>
+                <span class="chip">Evento de marca</span>
+                <span class="chip">Contenido personalizado</span>
+                <span class="chip">Clínica técnica</span>
+                <span class="chip">Cumpleaños</span>
+                <span class="chip">Cross-sell activo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ciclo 3 -->
+      <div class="journey-node">
+        <div class="journey-card">
+          <div class="journey-header">
+            <span class="journey-cycle">Ciclo 3 · 24 a 36 meses</span>
+            <span class="journey-period">Preparación Renovación</span>
+          </div>
+          <div class="journey-body">
+            <div style="font-size:var(--ts-sm);font-weight:700;color:var(--forest);margin-bottom:12px">Objetivo: Despertar intención de recompra y educar sobre opciones de renovación</div>
+            <div class="grid-3">
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Riesgo de Fuga</div>
+                <span class="chip">Medio</span>
+              </div>
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">KPI Principal</div>
+                <span class="chip blue">Intención de recompra</span>
+              </div>
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Activación</div>
+                <span class="chip fire">Renovación a 30 meses</span>
+              </div>
+            </div>
+            <div style="margin-top:12px">
+              <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Acciones clave</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px">
+                <span class="chip">Campaña de awareness renovación (30m)</span>
+                <span class="chip">Valorización VPP (36m)</span>
+                <span class="chip">Tercer aniversario</span>
+                <span class="chip">Presentación nuevos modelos</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ciclo 4 -->
+      <div class="journey-node">
+        <div class="journey-card">
+          <div class="journey-header" style="background:linear-gradient(135deg,#431407,var(--fire))">
+            <span class="journey-cycle">Ciclo 4 · 36 a 48 meses</span>
+            <span class="journey-period">Renovación</span>
+          </div>
+          <div class="journey-body">
+            <div style="font-size:var(--ts-sm);font-weight:700;color:var(--fire);margin-bottom:12px">Objetivo: Renovar · Capturar la nueva compra antes de que el cliente explore la competencia</div>
+            <div class="grid-3">
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Riesgo de Fuga</div>
+                <span class="chip fire">Muy Alto</span>
+              </div>
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">KPI Principal</div>
+                <span class="chip fire">Nueva Compra</span>
+              </div>
+              <div>
+                <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Foco</div>
+                <span class="seg-badge seg-vip">VIP</span>
+                <span class="seg-badge seg-oro" style="margin-left:4px">Oro</span>
+              </div>
+            </div>
+            <div style="margin-top:12px">
+              <div style="font-size:var(--ts-xs);font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px">Acciones clave</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px">
+                <span class="chip fire">Oferta personalizada (42m)</span>
+                <span class="chip fire">Campaña cierre renovación (48m)</span>
+                <span class="chip">VPP como palanca</span>
+                <span class="chip">Financiamiento preferente</span>
+                <span class="chip">Seguimiento activo</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 08 – TOUCHPOINTS TRANSACCIONALES
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="t08">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Arquitectura de Contacto</div>
+    <h1 class="hero-title">Touchpoints <em>Transaccionales</em></h1>
+    <p class="hero-desc">Momentos de contacto orientados a generar una transacción comercial. Tienen impacto directo en ingresos y deben estar coordinados con el ciclo del cliente.</p>
+  </div>
+  <div class="section-body">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px">
+
+      <div class="tp-card transaccional">
+        <div class="tp-code">T1</div>
+        <div class="tp-title">Oferta Mantención Prepagada (MPP)</div>
+        <div class="tp-moment">⏱ Negociación del vehículo</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">VIP · Oro · Plata</span></div>
+          <div class="tp-field"><span class="tp-field-label">Categoría Marca</span><span class="tp-field-val">A · B · C preferente</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Ejecutivo Comercial</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Comercial VN/VU</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Penetración MPP</span></div>
+          <div class="tp-field"><span class="tp-field-label">Valor Esperado</span><span class="tp-field-val">Retención garantizada</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card transaccional">
+        <div class="tp-code">T2</div>
+        <div class="tp-title">Venta de Accesorios</div>
+        <div class="tp-moment">⏱ Pre-entrega del vehículo</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">Todos</span></div>
+          <div class="tp-field"><span class="tp-field-label">Categoría Marca</span><span class="tp-field-val">Todas</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Ejecutivo Entrega</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Comercial + Postventa</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Penetración accesorios</span></div>
+          <div class="tp-field"><span class="tp-field-label">Valor Esperado</span><span class="tp-field-val">Ticket adicional VN/VU</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card transaccional">
+        <div class="tp-code">T3</div>
+        <div class="tp-title">Primer Mantenimiento Programado</div>
+        <div class="tp-moment">⏱ 10–12 meses desde compra</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">Todos · foco VIP/Oro</span></div>
+          <div class="tp-field"><span class="tp-field-label">Categoría Marca</span><span class="tp-field-val">A · B prioritario</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">WhatsApp · Call · Email</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Postventa · CC</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Retención Año 1</span></div>
+          <div class="tp-field"><span class="tp-field-label">Valor Esperado</span><span class="tp-field-val">Ingreso taller + hábito</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card transaccional">
+        <div class="tp-code">T4</div>
+        <div class="tp-title">Segundo Mantenimiento Programado</div>
+        <div class="tp-moment">⏱ 22–24 meses desde compra</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">VIP · Oro · Plata</span></div>
+          <div class="tp-field"><span class="tp-field-label">Categoría Marca</span><span class="tp-field-val">A · B · C</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">WhatsApp · Call</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Postventa · CC</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Retención Año 2</span></div>
+          <div class="tp-field"><span class="tp-field-label">Valor Esperado</span><span class="tp-field-val">Continuidad relación</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card transaccional">
+        <div class="tp-code">T5</div>
+        <div class="tp-title">Oferta de Renovación Temprana</div>
+        <div class="tp-moment">⏱ 30 meses desde compra</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">VIP · Oro</span></div>
+          <div class="tp-field"><span class="tp-field-label">Categoría Marca</span><span class="tp-field-val">A · B</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Asesor dedicado · WA</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Comercial VN + IC</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Intención recompra</span></div>
+          <div class="tp-field"><span class="tp-field-label">Valor Esperado</span><span class="tp-field-val">Awareness renovación</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card transaccional">
+        <div class="tp-code">T6</div>
+        <div class="tp-title">Valorización VPP</div>
+        <div class="tp-moment">⏱ 36 meses desde compra</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">VIP · Oro · Plata</span></div>
+          <div class="tp-field"><span class="tp-field-label">Categoría Marca</span><span class="tp-field-val">A · B · C</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Asesor + WhatsApp</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Comercial VU + IC</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Uso de VPP</span></div>
+          <div class="tp-field"><span class="tp-field-label">Valor Esperado</span><span class="tp-field-val">Palanca de renovación</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card transaccional">
+        <div class="tp-code">T7</div>
+        <div class="tp-title">Oferta Personalizada de Renovación</div>
+        <div class="tp-moment">⏱ 42 meses desde compra</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">VIP · Oro</span></div>
+          <div class="tp-field"><span class="tp-field-label">Categoría Marca</span><span class="tp-field-val">A · B</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Asesor dedicado</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Comercial VN + IC</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Test drive · Cotización</span></div>
+          <div class="tp-field"><span class="tp-field-label">Valor Esperado</span><span class="tp-field-val">Conversión renovación</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card transaccional">
+        <div class="tp-code">T8</div>
+        <div class="tp-title">Campaña Cierre de Renovación</div>
+        <div class="tp-moment">⏱ 48 meses desde compra</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">Todos con segmento</span></div>
+          <div class="tp-field"><span class="tp-field-label">Categoría Marca</span><span class="tp-field-val">A · B · C</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Multi-canal</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Comercial + Marketing + IC</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Renovación efectiva</span></div>
+          <div class="tp-field"><span class="tp-field-label">Valor Esperado</span><span class="tp-field-val">Nueva venta VN/VU</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card transaccional">
+        <div class="tp-code">T9</div>
+        <div class="tp-title">Venta de Financiamiento</div>
+        <div class="tp-moment">⏱ Negociación y Renovación</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">Todos · énfasis VIP/Oro</span></div>
+          <div class="tp-field"><span class="tp-field-label">Categoría Marca</span><span class="tp-field-val">Todas</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Ejecutivo + Oferta digital</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Comercial VN/VU</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Penetración financiamiento</span></div>
+          <div class="tp-field"><span class="tp-field-label">Valor Esperado</span><span class="tp-field-val">Ingreso F&amp;I + LTV</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card transaccional">
+        <div class="tp-code">T10</div>
+        <div class="tp-title">Venta de Seguros</div>
+        <div class="tp-moment">⏱ Entrega y Aniversario</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">VIP · Oro prioritario</span></div>
+          <div class="tp-field"><span class="tp-field-label">Categoría Marca</span><span class="tp-field-val">A · B · C</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Call · WhatsApp · Taller</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">CC + Postventa</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Penetración seguros</span></div>
+          <div class="tp-field"><span class="tp-field-label">Valor Esperado</span><span class="tp-field-val">Recurrencia + LTV</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 09 – TOUCHPOINTS RELACIONALES
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="t09">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Arquitectura de Contacto</div>
+    <h1 class="hero-title">Touchpoints <em>Relacionales</em></h1>
+    <p class="hero-desc">Momentos de contacto no transaccionales que construyen el vínculo emocional, la confianza y la lealtad del cliente a lo largo del tiempo.</p>
+  </div>
+  <div class="section-body">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px">
+
+      <div class="tp-card relacional">
+        <div class="tp-code">R1</div>
+        <div class="tp-title">Llamada de Bienvenida</div>
+        <div class="tp-moment">⏱ 7 días post-entrega</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Objetivo</span><span class="tp-field-val">Verificar satisfacción entrega</span></div>
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">Todos · énfasis Ford/Subaru</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Teléfono · WhatsApp</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Customer Care</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Tasa contacto efectivo</span></div>
+          <div class="tp-field"><span class="tp-field-label">Cat. Marca</span><span class="tp-field-val">Todas · prioridad A/B</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card relacional">
+        <div class="tp-code">R2</div>
+        <div class="tp-title">Encuesta de Experiencia</div>
+        <div class="tp-moment">⏱ 15 días post-entrega</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Objetivo</span><span class="tp-field-val">Medir NPS y detectar fricción</span></div>
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">Todos</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Email · SMS · WhatsApp</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Exp. Cliente + Marketing</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">NPS · Tasa respuesta</span></div>
+          <div class="tp-field"><span class="tp-field-label">Cat. Marca</span><span class="tp-field-val">Todas</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card relacional">
+        <div class="tp-code">R3</div>
+        <div class="tp-title">Contacto Customer Care</div>
+        <div class="tp-moment">⏱ 45 días post-entrega</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Objetivo</span><span class="tp-field-val">Resolver dudas y construir confianza</span></div>
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">VIP · Oro · Plata</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Teléfono · WA dedicado</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Customer Care</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Satisfacción contacto</span></div>
+          <div class="tp-field"><span class="tp-field-label">Cat. Marca</span><span class="tp-field-val">A · B prioritario</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card relacional">
+        <div class="tp-code">R4</div>
+        <div class="tp-title">Chequeo Preventivo</div>
+        <div class="tp-moment">⏱ 6 meses desde entrega</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Objetivo</span><span class="tp-field-val">Primer contacto taller, crear hábito</span></div>
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">Todos · foco Ford/Subaru</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Call + WhatsApp</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Postventa · CC</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Asistencia chequeo</span></div>
+          <div class="tp-field"><span class="tp-field-label">Cat. Marca</span><span class="tp-field-val">B prioritario</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card relacional">
+        <div class="tp-code">R5</div>
+        <div class="tp-title">Saludo de Cumpleaños</div>
+        <div class="tp-moment">⏱ Anual (día de cumpleaños)</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Objetivo</span><span class="tp-field-val">Conexión emocional personalizada</span></div>
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">VIP · Oro: personalizado</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">WA · Email · Llamada VIP</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">CC · Marketing</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Apertura · Satisfacción</span></div>
+          <div class="tp-field"><span class="tp-field-label">Cat. Marca</span><span class="tp-field-val">Todas</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card relacional">
+        <div class="tp-code">R6</div>
+        <div class="tp-title">Aniversario de Compra</div>
+        <div class="tp-moment">⏱ Anual (fecha de entrega)</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Objetivo</span><span class="tp-field-val">Celebrar relación + recordatorio mantención</span></div>
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">Todos</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Email · WA personalizado</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Marketing · Postventa</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Agendamiento mantención</span></div>
+          <div class="tp-field"><span class="tp-field-label">Cat. Marca</span><span class="tp-field-val">Todas · énfasis A/B</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card relacional">
+        <div class="tp-code">R7</div>
+        <div class="tp-title">Contenido Personalizado</div>
+        <div class="tp-moment">⏱ Trimestral</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Objetivo</span><span class="tp-field-val">Mantener presencia y valor percibido</span></div>
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">VIP · Oro: premium · Plata: estándar</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Email · WhatsApp</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Marketing + IC</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Apertura · CTR</span></div>
+          <div class="tp-field"><span class="tp-field-label">Cat. Marca</span><span class="tp-field-val">Personalizado por marca</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card relacional">
+        <div class="tp-code">R8</div>
+        <div class="tp-title">Evento de Marca</div>
+        <div class="tp-moment">⏱ Anual</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Objetivo</span><span class="tp-field-val">Vínculo emocional y comunidad</span></div>
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">VIP · Oro · Plata</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Presencial · Digital</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Marketing + Experiencia</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Asistencia · NPS evento</span></div>
+          <div class="tp-field"><span class="tp-field-label">Cat. Marca</span><span class="tp-field-val">A · B prioritario</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card relacional">
+        <div class="tp-code">R9</div>
+        <div class="tp-title">Clínica Técnica</div>
+        <div class="tp-moment">⏱ Anual</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Objetivo</span><span class="tp-field-val">Demostrar valor del taller oficial</span></div>
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">Todos · foco Toyota/Lex/Mit</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Presencial en concesionario</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Postventa + Marketing</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">Retención post-clínica</span></div>
+          <div class="tp-field"><span class="tp-field-label">Cat. Marca</span><span class="tp-field-val">B · C prioritario</span></div>
+        </div>
+      </div>
+
+      <div class="tp-card relacional" style="border: 1px solid rgba(124,58,237,.3)">
+        <div class="tp-code" style="color:#7c3aed">R10</div>
+        <div class="tp-title">Evento VIP Exclusivo</div>
+        <div class="tp-moment">⏱ Anual</div>
+        <div style="background:rgba(124,58,237,.07);border:1px solid rgba(124,58,237,.2);border-radius:var(--r-sm);padding:8px;margin-bottom:10px;font-size:var(--ts-xs);color:#7c3aed;font-weight:700">Solo clientes VIP y Oro · Totalmente exclusivo</div>
+        <div class="tp-grid">
+          <div class="tp-field"><span class="tp-field-label">Objetivo</span><span class="tp-field-val">Experiencia premium única</span></div>
+          <div class="tp-field"><span class="tp-field-label">Segmento</span><span class="tp-field-val">VIP · Oro exclusivamente</span></div>
+          <div class="tp-field"><span class="tp-field-label">Canal</span><span class="tp-field-val">Presencial premium</span></div>
+          <div class="tp-field"><span class="tp-field-label">Responsable</span><span class="tp-field-val">Experiencia + Marketing</span></div>
+          <div class="tp-field"><span class="tp-field-label">KPI</span><span class="tp-field-val">NPS · Referidos · Lealtad</span></div>
+          <div class="tp-field"><span class="tp-field-label">Cat. Marca</span><span class="tp-field-val">A · B</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 10 – BENEFICIOS Y EXPERIENCIAS
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="t10">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Propuesta de Valor</div>
+    <h1 class="hero-title">Beneficios y <em>Experiencias</em></h1>
+    <p class="hero-desc">Beneficios diferenciados por segmento de valor interno. El cliente nunca conoce su categoría, pero experimenta una atención claramente superior.</p>
+  </div>
+  <div class="section-body">
+    <div class="callout philosophy mt-0 mb-24">
+      <div class="callout-icon">🔒</div>
+      <div class="callout-body">
+        <div class="callout-title">Las categorías nunca son visibles para el cliente</div>
+        <div class="callout-text">El cliente vive una experiencia diferenciada sin saber por qué. No existen comunicaciones que mencionen "VIP", "Oro", "Plata" o "Bronce". La diferenciación se expresa a través del nivel de atención, la exclusividad de las invitaciones y la calidad de los beneficios recibidos.</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="tier-card">
+        <div class="tier-header vip">
+          <div class="tier-name">VIP</div>
+          <div class="tier-desc">Experiencia sin igual · La cúspide de la atención</div>
+        </div>
+        <div class="tier-body">
+          <div class="benefit-item"><div class="benefit-dot vip"></div><span class="benefit-text">Atención prioritaria en todas las instancias de contacto</span></div>
+          <div class="benefit-item"><div class="benefit-dot vip"></div><span class="benefit-text">Vehículo de reemplazo disponible desde el primer día en taller</span></div>
+          <div class="benefit-item"><div class="benefit-dot vip"></div><span class="benefit-text">Invitaciones exclusivas a lanzamientos y pre-ventas privadas</span></div>
+          <div class="benefit-item"><div class="benefit-dot vip"></div><span class="benefit-text">Acceso anticipado a nuevos modelos antes de lanzamiento público</span></div>
+          <div class="benefit-item"><div class="benefit-dot vip"></div><span class="benefit-text">Eventos privados con directivos y embajadores de marca</span></div>
+          <div class="benefit-item"><div class="benefit-dot vip"></div><span class="benefit-text">Customer Care especializado: un asesor personal dedicado</span></div>
+          <div class="benefit-item"><div class="benefit-dot vip"></div><span class="benefit-text">Recogida y entrega del vehículo a domicilio para mantenciones</span></div>
+        </div>
+      </div>
+
+      <div class="tier-card">
+        <div class="tier-header oro">
+          <div class="tier-name">Oro</div>
+          <div class="tier-desc">Experiencia premium · Reconocimiento real</div>
+        </div>
+        <div class="tier-body">
+          <div class="benefit-item"><div class="benefit-dot oro"></div><span class="benefit-text">Beneficios premium diferenciados en servicios y mantenciones</span></div>
+          <div class="benefit-item"><div class="benefit-dot oro"></div><span class="benefit-text">Invitaciones a eventos exclusivos de marca y lanzamientos</span></div>
+          <div class="benefit-item"><div class="benefit-dot oro"></div><span class="benefit-text">Descuentos preferentes en accesorios, seguros y servicios</span></div>
+          <div class="benefit-item"><div class="benefit-dot oro"></div><span class="benefit-text">Atención preferente con tiempos de espera reducidos</span></div>
+          <div class="benefit-item"><div class="benefit-dot oro"></div><span class="benefit-text">Ofertas personalizadas de renovación con condiciones especiales</span></div>
+          <div class="benefit-item"><div class="benefit-dot oro"></div><span class="benefit-text">Acceso al Evento VIP Anual (R10)</span></div>
+        </div>
+      </div>
+
+      <div class="tier-card">
+        <div class="tier-header plata">
+          <div class="tier-name">Plata</div>
+          <div class="tier-desc">Experiencia estándar mejorada</div>
+        </div>
+        <div class="tier-body">
+          <div class="benefit-item"><div class="benefit-dot plata"></div><span class="benefit-text">Beneficios estándar con mejoras seleccionadas</span></div>
+          <div class="benefit-item"><div class="benefit-dot plata"></div><span class="benefit-text">Acceso a ofertas de temporada y campañas especiales</span></div>
+          <div class="benefit-item"><div class="benefit-dot plata"></div><span class="benefit-text">Comunicación personalizada con contenido relevante por marca</span></div>
+          <div class="benefit-item"><div class="benefit-dot plata"></div><span class="benefit-text">Prioridad en campañas de mantención y retención</span></div>
+          <div class="benefit-item"><div class="benefit-dot plata"></div><span class="benefit-text">Invitación a eventos de marca de acceso general</span></div>
+        </div>
+      </div>
+
+      <div class="tier-card">
+        <div class="tier-header bronce">
+          <div class="tier-name">Bronce</div>
+          <div class="tier-desc">Atención base de calidad</div>
+        </div>
+        <div class="tier-body">
+          <div class="benefit-item"><div class="benefit-dot bronce"></div><span class="benefit-text">Beneficios básicos estándar del programa</span></div>
+          <div class="benefit-item"><div class="benefit-dot bronce"></div><span class="benefit-text">Comunicación masiva eficiente y automatizada</span></div>
+          <div class="benefit-item"><div class="benefit-dot bronce"></div><span class="benefit-text">Acceso a campañas de retención generales</span></div>
+          <div class="benefit-item"><div class="benefit-dot bronce"></div><span class="benefit-text">Recordatorios de mantención y aniversario automatizados</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 11 – PROGRAMA DE RENOVACIÓN INTELIGENTE
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="t11">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Iniciativa Central del Programa</div>
+    <h1 class="hero-title">Renovación <em>Inteligente</em></h1>
+    <p class="hero-desc">La iniciativa de mayor impacto. Una secuencia estructurada de 18 meses activada a los 30 meses desde la compra, personalizada por segmento, marca y comportamiento.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-val accent">30m</span>
+        <span class="hero-stat-label">Activación del programa</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val fire">4</span>
+        <span class="hero-stat-label">Etapas de la secuencia</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-val accent">7</span>
+        <span class="hero-stat-label">Variables de personalización</span>
+      </div>
+    </div>
+  </div>
+  <div class="section-body">
+    <div class="section-title-group">
+      <div class="section-eyebrow">Secuencia de Renovación</div>
+      <h2 class="section-title">18 meses de gestión proactiva</h2>
+    </div>
+
+    <div class="renov-track mb-32">
+      <div class="renov-step rs-1">
+        <div class="renov-month">Mes 30</div>
+        <div class="renov-name">Educación y Awareness</div>
+        <div class="renov-desc">Primer contacto suave. Mostrar opciones de nuevos modelos. Despertar la curiosidad sin presión.</div>
+      </div>
+      <div class="renov-step rs-2">
+        <div class="renov-month">Mes 36</div>
+        <div class="renov-name">Valorización VPP</div>
+        <div class="renov-desc">Tasación del vehículo actual. Mostrar el valor de parte de pago y las condiciones de renovación.</div>
+      </div>
+      <div class="renov-step rs-3">
+        <div class="renov-month">Mes 42</div>
+        <div class="renov-name">Oferta Personalizada</div>
+        <div class="renov-desc">Propuesta específica basada en historial, segmento y preferencias. Test drive. Cotización preferencial.</div>
+      </div>
+      <div class="renov-step rs-4">
+        <div class="renov-month">Mes 48</div>
+        <div class="renov-name">Campaña de Cierre</div>
+        <div class="renov-desc">Máxima intensidad. Oferta final con beneficios de cierre. Financiamiento preferente. Deadline claro.</div>
+      </div>
+    </div>
+
+    <div class="grid-2 mb-32">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon green">🔬</div>
+          <div><div class="card-title">Variables de Personalización</div><div class="card-subtitle">7 dimensiones que definen la oferta</div></div>
+        </div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--gray-50);border-radius:var(--r-sm)">
+              <div style="width:6px;height:6px;border-radius:50%;background:var(--forest);flex-shrink:0"></div>
+              <span style="font-size:var(--ts-sm);font-weight:600">Segmento del cliente</span><span style="font-size:var(--ts-xs);color:var(--text-muted);margin-left:auto">Prioridad y tipo de oferta</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--gray-50);border-radius:var(--r-sm)">
+              <div style="width:6px;height:6px;border-radius:50%;background:var(--forest);flex-shrink:0"></div>
+              <span style="font-size:var(--ts-sm);font-weight:600">Marca del vehículo</span><span style="font-size:var(--ts-xs);color:var(--text-muted);margin-left:auto">Condiciones y dealer</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--gray-50);border-radius:var(--r-sm)">
+              <div style="width:6px;height:6px;border-radius:50%;background:var(--forest);flex-shrink:0"></div>
+              <span style="font-size:var(--ts-sm);font-weight:600">Categoría de marca</span><span style="font-size:var(--ts-xs);color:var(--text-muted);margin-left:auto">Intensidad de inversión</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--gray-50);border-radius:var(--r-sm)">
+              <div style="width:6px;height:6px;border-radius:50%;background:var(--forest);flex-shrink:0"></div>
+              <span style="font-size:var(--ts-sm);font-weight:600">Antigüedad del vehículo</span><span style="font-size:var(--ts-xs);color:var(--text-muted);margin-left:auto">Timing de la oferta</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--gray-50);border-radius:var(--r-sm)">
+              <div style="width:6px;height:6px;border-radius:50%;background:var(--forest);flex-shrink:0"></div>
+              <span style="font-size:var(--ts-sm);font-weight:600">Uso de Postventa</span><span style="font-size:var(--ts-xs);color:var(--text-muted);margin-left:auto">Vinculación y confianza</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--gray-50);border-radius:var(--r-sm)">
+              <div style="width:6px;height:6px;border-radius:50%;background:var(--forest);flex-shrink:0"></div>
+              <span style="font-size:var(--ts-sm);font-weight:600">Valor estimado VPP</span><span style="font-size:var(--ts-xs);color:var(--text-muted);margin-left:auto">Parte de pago</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px;background:var(--gray-50);border-radius:var(--r-sm)">
+              <div style="width:6px;height:6px;border-radius:50%;background:var(--forest);flex-shrink:0"></div>
+              <span style="font-size:var(--ts-sm);font-weight:600">Historial de compra</span><span style="font-size:var(--ts-xs);color:var(--text-muted);margin-left:auto">Preferencias y lealtad</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon fire">📈</div>
+          <div><div class="card-title">ROI y Justificación Estratégica</div><div class="card-subtitle">Por qué es la iniciativa más importante del programa</div></div>
+        </div>
+        <div class="card-body">
+          <div style="background:rgba(255,77,0,.07);border:1px solid rgba(255,77,0,.2);border-radius:var(--r-sm);padding:16px;margin-bottom:16px">
+            <div style="font-size:var(--ts-2xl);font-weight:900;color:var(--fire);letter-spacing:-.03em">×3–5x</div>
+            <div style="font-size:var(--ts-sm);color:var(--text-muted);margin-top:4px">Costo de retener vs. costo de adquirir un cliente nuevo equivalente</div>
+          </div>
+          <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px">
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--forest);font-weight:700;flex-shrink:0">→</span>Un cliente VIP que renueva genera $1.355.000 adicional en LTV vs. un cliente nuevo</li>
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--forest);font-weight:700;flex-shrink:0">→</span>Tasa de cierre con segmento es 38-40% superior al promedio general</li>
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--forest);font-weight:700;flex-shrink:0">→</span>La ventana 30-48m es el momento de mayor vulnerabilidad del cliente a la competencia</li>
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--forest);font-weight:700;flex-shrink:0">→</span>Actuar proactivamente reduce el costo de incentivos necesarios para cerrar</li>
+            <li style="font-size:var(--ts-sm);display:flex;gap:8px"><span style="color:var(--forest);font-weight:700;flex-shrink:0">→</span>El VPP convierte la renovación en una decisión financieramente obvia para el cliente</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 12 – MODELO OPERATIVO
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="t12">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Modelo Operativo</div>
+    <h1 class="hero-title">Roles, <em>Flujos</em> y Responsabilidades</h1>
+    <p class="hero-desc">Inteligencia de Clientes como orquestador central. Las áreas ejecutoras implementan con la dirección de IC.</p>
+  </div>
+  <div class="section-body">
+
+    <div class="section-title-group">
+      <div class="section-eyebrow">Núcleo del Modelo</div>
+      <h2 class="section-title">Inteligencia de Clientes: El Orquestador Principal</h2>
+    </div>
+
+    <div style="text-align:center;margin-bottom:40px">
+      <div class="intel-center">
+        <div style="font-size:var(--ts-xs);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mint)">Inteligencia</div>
+        <div style="font-size:var(--ts-xs);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mint)">de Clientes</div>
+        <div style="font-size:9px;color:rgba(207,221,192,.6);margin-top:4px;letter-spacing:.06em">ORQUESTADOR</div>
+      </div>
+      <div class="intel-spokes">
+        <span class="intel-spoke">¿Quién debe ser contactado?</span>
+        <span class="intel-spoke">¿Cuándo contactar?</span>
+        <span class="intel-spoke">¿Qué oferta presentar?</span>
+        <span class="intel-spoke">¿Por qué canal?</span>
+        <span class="intel-spoke">Segmentación mensual</span>
+        <span class="intel-spoke">Modelos predictivos</span>
+        <span class="intel-spoke">Audiencias de campaña</span>
+        <span class="intel-spoke">Priorización comercial</span>
+        <span class="intel-spoke">Automatización</span>
+        <span class="intel-spoke">Medición de resultados</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-title-group mt-32">
+      <div class="section-eyebrow">Áreas Ejecutoras</div>
+      <h2 class="section-title">Responsabilidades por Equipo</h2>
+    </div>
+
+    <div class="grid-3">
+      <div class="op-role">
+        <div class="op-role-name">Comercial VN</div>
+        <ul class="op-tasks">
+          <li>Gestionar leads priorizados por segmento</li>
+          <li>Activar oferta de renovación en ventana 30-48m</li>
+          <li>Incorporar MPP y financiamiento en negociación</li>
+          <li>Reportar tasas de cierre por segmento</li>
+          <li>Ejecutar secuencia de renovación inteligente</li>
+        </ul>
+      </div>
+      <div class="op-role">
+        <div class="op-role-name">Comercial VU</div>
+        <ul class="op-tasks">
+          <li>Gestionar VPP de clientes en ventana de renovación</li>
+          <li>Activar clientes existentes como compradores VU</li>
+          <li>Coordinar con IC la valorización de vehículos</li>
+          <li>Reportar penetración VU sobre base segmentada</li>
+        </ul>
+      </div>
+      <div class="op-role">
+        <div class="op-role-name">Postventa</div>
+        <ul class="op-tasks">
+          <li>Visualizar segmento del cliente en el sistema</li>
+          <li>Aplicar protocolo diferenciado VIP/Oro</li>
+          <li>Ejecutar touchpoints R3 y R4 de onboarding</li>
+          <li>Agendar primera mantención en entrega</li>
+          <li>Cross-sell activo en cada visita</li>
+          <li>Reportar retención por marca y año</li>
+        </ul>
+      </div>
+      <div class="op-role">
+        <div class="op-role-name">Marketing</div>
+        <ul class="op-tasks">
+          <li>Recibir audiencias segmentadas de IC</li>
+          <li>Ejecutar campañas por segmento y cuadrante</li>
+          <li>Producir contenido personalizado por marca</li>
+          <li>Gestionar eventos R8 y R10</li>
+          <li>Medir ROI de campañas con IC</li>
+        </ul>
+      </div>
+      <div class="op-role">
+        <div class="op-role-name">Lead Management</div>
+        <ul class="op-tasks">
+          <li>Recibir y distribuir leads priorizados por segmento</li>
+          <li>Asegurar SLA diferenciados por prioridad</li>
+          <li>Alimentar CRM con interacciones</li>
+          <li>Reportar conversión por segmento y canal</li>
+        </ul>
+      </div>
+      <div class="op-role">
+        <div class="op-role-name">Experiencia de Clientes</div>
+        <ul class="op-tasks">
+          <li>Diseñar protocolos diferenciados por segmento</li>
+          <li>Asegurar consistencia de experiencia</li>
+          <li>Gestionar escapes de satisfacción VIP/Oro</li>
+          <li>Liderar NPS y cierre de ciclos de mejora</li>
+        </ul>
+      </div>
+      <div class="op-role">
+        <div class="op-role-name">Servicio al Cliente</div>
+        <ul class="op-tasks">
+          <li>Atención diferenciada según segmento visible en sistema</li>
+          <li>Protocolo VIP activo en tiempo real</li>
+          <li>Escalamiento a Customer Care para VIP/Oro</li>
+          <li>Registro de interacciones en CRM</li>
+        </ul>
+      </div>
+      <div class="op-role">
+        <div class="op-role-name">Contact Center</div>
+        <ul class="op-tasks">
+          <li>Ejecutar llamadas de bienvenida (R1)</li>
+          <li>Activar contacto preventivo (R3, R4)</li>
+          <li>Apoyo a campañas de retención y renovación</li>
+          <li>Transferencia calificada a asesor para VIP/Oro</li>
+        </ul>
+      </div>
+      <div class="op-role">
+        <div class="op-role-name">Inteligencia de Clientes</div>
+        <ul class="op-tasks">
+          <li>Segmentación mensual de toda la base</li>
+          <li>Generación de audiencias para Marketing y Comercial</li>
+          <li>Modelos de propensión y riesgo de fuga</li>
+          <li>Automatización de reglas de activación</li>
+          <li>Reporting ejecutivo del programa</li>
+          <li>Definir quién, cuándo, oferta y canal</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 13 – PROCESOS, PERSONAS Y TECNOLOGÍA
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="t13">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Capacidades Habilitantes</div>
+    <h1 class="hero-title">Procesos, Personas y <em>Tecnología</em></h1>
+    <p class="hero-desc">El programa requiere capacidades específicas de proceso, talento y tecnología para ejecutarse con efectividad y escala.</p>
+  </div>
+  <div class="section-body">
+    <div class="section-title-group">
+      <div class="section-eyebrow">Iniciativas Principales</div>
+      <h2 class="section-title">Tabla de implementación detallada</h2>
+    </div>
+
+    <div class="table-wrap mb-40">
+      <table>
+        <thead>
+          <tr>
+            <th>Iniciativa</th>
+            <th>Objetivo</th>
+            <th>Área Responsable</th>
+            <th>Tecnología</th>
+            <th>Complejidad</th>
+            <th>Impacto Esperado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-section-header"><td colspan="6">RETENCIÓN</td></tr>
+          <tr>
+            <td>Onboarding Reforzado F/S</td>
+            <td>Garantizar primera mantención Ford/Subaru</td>
+            <td>Postventa · CC</td>
+            <td>CRM · Call automation</td>
+            <td><span class="chip green">Media</span></td>
+            <td>+15pp Retención Año 1</td>
+          </tr>
+          <tr>
+            <td>Programa Año 2 Toyota/Lexus</td>
+            <td>Evitar caída entre Año 1 y Año 3</td>
+            <td>Postventa · Marketing</td>
+            <td>CRM · WhatsApp API</td>
+            <td><span class="chip">Media</span></td>
+            <td>+10pp Retención Año 3</td>
+          </tr>
+          <tr>
+            <td>Segmento visible en Postventa</td>
+            <td>Atención diferenciada en taller</td>
+            <td>IC · Postventa · IT</td>
+            <td>DMS · CRM integrado</td>
+            <td><span class="chip fire">Alta</span></td>
+            <td>Experiencia diferenciada VIP/Oro</td>
+          </tr>
+          <tr class="table-section-header"><td colspan="6">RENOVACIÓN</td></tr>
+          <tr>
+            <td>Renovación Inteligente 30m</td>
+            <td>Capturar renovación antes de competencia</td>
+            <td>IC · Comercial VN · VU</td>
+            <td>CRM · Motor campañas</td>
+            <td><span class="chip fire">Alta</span></td>
+            <td>+20-30% tasa renovación</td>
+          </tr>
+          <tr>
+            <td>Valorización VPP automatizada</td>
+            <td>Tasación en tiempo real a 36 meses</td>
+            <td>IC · Comercial VU · IT</td>
+            <td>API tasación · CRM</td>
+            <td><span class="chip fire">Alta</span></td>
+            <td>Palanca de cierre renovación</td>
+          </tr>
+          <tr class="table-section-header"><td colspan="6">CRECIMIENTO</td></tr>
+          <tr>
+            <td>Cross-sell en Postventa</td>
+            <td>Aumentar ticket por visita en taller</td>
+            <td>Postventa · IC</td>
+            <td>DMS · CRM con triggers</td>
+            <td><span class="chip green">Baja</span></td>
+            <td>+15% ingreso por visita</td>
+          </tr>
+          <tr>
+            <td>Campaña movilidad segmentos</td>
+            <td>Mover Plata→Oro, Oro→VIP</td>
+            <td>IC · Marketing</td>
+            <td>Motor campañas · CRM</td>
+            <td><span class="chip">Media</span></td>
+            <td>+$628K-$1.35M LTV por cliente</td>
+          </tr>
+          <tr class="table-section-header"><td colspan="6">ACTIVACIÓN</td></tr>
+          <tr>
+            <td>Programa de Referidos</td>
+            <td>Adquisición a bajo costo desde base VIP/Oro</td>
+            <td>Marketing · CC · IC</td>
+            <td>CRM · Landing · WA</td>
+            <td><span class="chip">Media</span></td>
+            <td>10-15% de leads nuevos</td>
+          </tr>
+          <tr>
+            <td>Evento VIP Anual</td>
+            <td>Vínculo emocional premium</td>
+            <td>Experiencia · Marketing</td>
+            <td>Gestión de eventos</td>
+            <td><span class="chip green">Media</span></td>
+            <td>+NPS · Referidos · Lealtad</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-title-group">
+      <div class="section-eyebrow">Capacidades Habilitantes</div>
+      <h2 class="section-title">Tecnología y Datos requeridos</h2>
+    </div>
+
+    <div class="grid-4">
+      <div class="card">
+        <div class="card-body" style="text-align:center">
+          <div style="font-size:2rem;margin-bottom:8px">🔗</div>
+          <div style="font-weight:800;font-size:var(--ts-md);margin-bottom:6px">Integración CRM-DMS</div>
+          <div style="font-size:var(--ts-xs);color:var(--text-muted)">Visibilidad del segmento en Postventa, taller y CC. Base del programa.</div>
+          <span class="chip fire mt-8" style="margin-top:8px">Crítico</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body" style="text-align:center">
+          <div style="font-size:2rem;margin-bottom:8px">📱</div>
+          <div style="font-weight:800;font-size:var(--ts-md);margin-bottom:6px">WA con Segmento</div>
+          <div style="font-size:var(--ts-xs);color:var(--text-muted)">Agente visualiza el segmento del cliente al chatear. Respuestas diferenciadas.</div>
+          <span class="chip fire mt-8" style="margin-top:8px">Crítico</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body" style="text-align:center">
+          <div style="font-size:2rem;margin-bottom:8px">⚙️</div>
+          <div style="font-weight:800;font-size:var(--ts-md);margin-bottom:6px">Motor de Campañas</div>
+          <div style="font-size:var(--ts-xs);color:var(--text-muted)">Automatización de touchpoints por segmento, marca y momento del ciclo.</div>
+          <span class="chip fire mt-8" style="margin-top:8px">Crítico</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body" style="text-align:center">
+          <div style="font-size:2rem;margin-bottom:8px">🗃️</div>
+          <div style="font-weight:800;font-size:var(--ts-md);margin-bottom:6px">Data Mart Clientes</div>
+          <div style="font-size:var(--ts-xs);color:var(--text-muted)">Visión unificada 360° del cliente en VN, VU y Postventa para segmentación.</div>
+          <span class="chip fire mt-8" style="margin-top:8px">Crítico</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body" style="text-align:center">
+          <div style="font-size:2rem;margin-bottom:8px">📊</div>
+          <div style="font-weight:800;font-size:var(--ts-md);margin-bottom:6px">Reporting Ejecutivo</div>
+          <div style="font-size:var(--ts-xs);color:var(--text-muted)">Dashboard en tiempo real de KPIs del programa para dirección y gerencias.</div>
+          <span class="chip mt-8" style="margin-top:8px">Alta prioridad</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body" style="text-align:center">
+          <div style="font-size:2rem;margin-bottom:8px">🏛️</div>
+          <div style="font-weight:800;font-size:var(--ts-md);margin-bottom:6px">Gobierno de Datos</div>
+          <div style="font-size:var(--ts-xs);color:var(--text-muted)">Políticas de calidad, actualización y uso de datos del cliente en todo el ecosistema.</div>
+          <span class="chip mt-8" style="margin-top:8px">Alta prioridad</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body" style="text-align:center">
+          <div style="font-size:2rem;margin-bottom:8px">🤖</div>
+          <div style="font-weight:800;font-size:var(--ts-md);margin-bottom:6px">Automatización</div>
+          <div style="font-size:var(--ts-xs);color:var(--text-muted)">Reglas de negocio para activación de touchpoints sin intervención manual.</div>
+          <span class="chip mt-8" style="margin-top:8px">Media-Alta</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body" style="text-align:center">
+          <div style="font-size:2rem;margin-bottom:8px">📡</div>
+          <div style="font-weight:800;font-size:var(--ts-md);margin-bottom:6px">Gestión Audiencias</div>
+          <div style="font-size:var(--ts-xs);color:var(--text-muted)">Listas dinámicas para paid media, email y WhatsApp basadas en segmento y ciclo.</div>
+          <span class="chip mt-8" style="margin-top:8px">Alta prioridad</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 14 – KPIs
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="t14">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Dashboard Ejecutivo</div>
+    <h1 class="hero-title">KPIs del <em>Programa</em></h1>
+    <p class="hero-desc">Indicadores clave organizados por motor estratégico. Los valores actuales representan la línea base sobre la que se mide el progreso.</p>
+  </div>
+  <div class="section-body">
+
+    <div class="section-title-group">
+      <div class="section-eyebrow">Motor 1</div>
+      <h2 class="section-title">Retención</h2>
+    </div>
+    <div class="kpi-dash mb-32">
+      <div class="kpi-tile">
+        <div class="kpi-value">63%</div>
+        <div class="kpi-name">Retención Año 1</div>
+        <div class="kpi-trend">Meta: 70%</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">~45%</div>
+        <div class="kpi-name">Retención Año 2</div>
+        <div class="kpi-trend">Meta: 55%</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">28%</div>
+        <div class="kpi-name">Retención Año 3</div>
+        <div class="kpi-trend">Meta: 40%</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">—</div>
+        <div class="kpi-name">Ingreso a Taller</div>
+        <div class="kpi-trend">Por definir</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">—</div>
+        <div class="kpi-name">Frecuencia Visitas</div>
+        <div class="kpi-trend">Por definir</div>
+      </div>
+    </div>
+
+    <div class="section-title-group">
+      <div class="section-eyebrow">Motor 2</div>
+      <h2 class="section-title">Renovación</h2>
+    </div>
+    <div class="kpi-dash mb-32">
+      <div class="kpi-tile" style="--before-color:var(--fire)">
+        <div class="kpi-value">6.7%</div>
+        <div class="kpi-name">Conversión VN clientes base</div>
+        <div class="kpi-trend" style="color:var(--fire)">Meta: 15%</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">11.1%</div>
+        <div class="kpi-name">Conversión VU clientes base</div>
+        <div class="kpi-trend" style="color:var(--fire)">Meta: 20%</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">4.7%</div>
+        <div class="kpi-name">Cierre VN con segmento</div>
+        <div class="kpi-trend">Meta: 6%</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">11.1%</div>
+        <div class="kpi-name">Cierre VU con segmento</div>
+        <div class="kpi-trend">Meta: 15%</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">—</div>
+        <div class="kpi-name">Uso de VPP</div>
+        <div class="kpi-trend">Por definir</div>
+      </div>
+    </div>
+
+    <div class="section-title-group">
+      <div class="section-eyebrow">Motor 3</div>
+      <h2 class="section-title">Crecimiento de Valor</h2>
+    </div>
+    <div class="kpi-dash mb-32">
+      <div class="kpi-tile">
+        <div class="kpi-value">21%</div>
+        <div class="kpi-name">Participación VIP+Oro</div>
+        <div class="kpi-trend">Meta: 25%</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">54%</div>
+        <div class="kpi-name">% Margen VIP+Oro</div>
+        <div class="kpi-trend">Meta: 60%</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">—</div>
+        <div class="kpi-name">LTV Promedio</div>
+        <div class="kpi-trend">Por establecer</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">—</div>
+        <div class="kpi-name">Penet. Financiamiento</div>
+        <div class="kpi-trend">Por definir</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">—</div>
+        <div class="kpi-name">Penet. Seguros</div>
+        <div class="kpi-trend">Por definir</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">—</div>
+        <div class="kpi-name">Penet. Accesorios</div>
+        <div class="kpi-trend">Por definir</div>
+      </div>
+    </div>
+
+    <div class="section-title-group">
+      <div class="section-eyebrow">Motor 4</div>
+      <h2 class="section-title">Activación y Relación</h2>
+    </div>
+    <div class="kpi-dash mb-32">
+      <div class="kpi-tile">
+        <div class="kpi-value">—</div>
+        <div class="kpi-name">NPS Global</div>
+        <div class="kpi-trend">Meta: +60</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">—</div>
+        <div class="kpi-name">Referidos</div>
+        <div class="kpi-trend">Meta: 5% de ventas</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">—</div>
+        <div class="kpi-name">Apertura Comunicaciones</div>
+        <div class="kpi-trend">Meta: >35%</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">—</div>
+        <div class="kpi-name">Asistencia a Eventos</div>
+        <div class="kpi-trend">Por definir</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-value">—</div>
+        <div class="kpi-name">ROI Marketing</div>
+        <div class="kpi-trend">Meta: >4:1</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon green">📉</div>
+        <div><div class="card-title">Visión de Retención por Año</div><div class="card-subtitle">Estado actual vs. metas del programa</div></div>
+      </div>
+      <div class="card-body">
+        <div style="display:flex;gap:40px;align-items:flex-end;height:160px;padding:0 20px 20px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1">
+            <div style="display:flex;gap:6px;align-items:flex-end;width:100%;height:120px">
+              <div style="flex:1;background:linear-gradient(180deg,var(--forest),var(--deep));border-radius:4px 4px 0 0;height:76%;display:flex;align-items:flex-start;justify-content:center;padding-top:6px;font-size:11px;font-weight:800;color:var(--mint)">63%</div>
+              <div style="flex:1;background:linear-gradient(180deg,var(--mint),rgba(147,251,184,.3));border-radius:4px 4px 0 0;height:84%;display:flex;align-items:flex-start;justify-content:center;padding-top:6px;font-size:11px;font-weight:800;color:var(--forest)">70%</div>
+            </div>
+            <div style="font-size:var(--ts-xs);font-weight:700;color:var(--text-muted)">Año 1</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1">
+            <div style="display:flex;gap:6px;align-items:flex-end;width:100%;height:120px">
+              <div style="flex:1;background:linear-gradient(180deg,var(--forest),var(--deep));border-radius:4px 4px 0 0;height:54%;display:flex;align-items:flex-start;justify-content:center;padding-top:6px;font-size:11px;font-weight:800;color:var(--mint)">45%</div>
+              <div style="flex:1;background:linear-gradient(180deg,var(--mint),rgba(147,251,184,.3));border-radius:4px 4px 0 0;height:66%;display:flex;align-items:flex-start;justify-content:center;padding-top:6px;font-size:11px;font-weight:800;color:var(--forest)">55%</div>
+            </div>
+            <div style="font-size:var(--ts-xs);font-weight:700;color:var(--text-muted)">Año 2</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:6px;flex:1">
+            <div style="display:flex;gap:6px;align-items:flex-end;width:100%;height:120px">
+              <div style="flex:1;background:linear-gradient(180deg,var(--fire),rgba(255,77,0,.4));border-radius:4px 4px 0 0;height:33%;display:flex;align-items:flex-start;justify-content:center;padding-top:6px;font-size:11px;font-weight:800;color:white">28%</div>
+              <div style="flex:1;background:linear-gradient(180deg,var(--mint),rgba(147,251,184,.3));border-radius:4px 4px 0 0;height:48%;display:flex;align-items:flex-start;justify-content:center;padding-top:6px;font-size:11px;font-weight:800;color:var(--forest)">40%</div>
+            </div>
+            <div style="font-size:var(--ts-xs);font-weight:700;color:var(--text-muted)">Año 3</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px;justify-content:center;margin-top:8px">
+          <div style="display:flex;align-items:center;gap:6px;font-size:var(--ts-xs);color:var(--text-muted)"><div style="width:12px;height:12px;background:var(--forest);border-radius:2px"></div>Estado actual</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:var(--ts-xs);color:var(--text-muted)"><div style="width:12px;height:12px;background:var(--mint);border-radius:2px"></div>Meta programa</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     TAB 15 – ROADMAP
+═══════════════════════════════════════════════════════════════════ -->
+<section class="tab-panel" id="t15">
+  <div class="page-hero">
+    <div class="hero-eyebrow">Implementación</div>
+    <h1 class="hero-title">Roadmap de <em>4 Fases</em></h1>
+    <p class="hero-desc">Plan de implementación progresivo: desde la creación de las bases analíticas hasta la optimización con modelos predictivos avanzados.</p>
+  </div>
+  <div class="section-body">
+    <div class="section-title-group">
+      <div class="section-eyebrow">Visión General</div>
+      <h2 class="section-title">Cuatro fases de transformación</h2>
+    </div>
+
+    <div class="roadmap-track mb-40">
+      <div class="roadmap-phase">
+        <div class="roadmap-dot ph1">1</div>
+        <div style="text-align:center;font-size:var(--ts-xs);font-weight:700;color:var(--forest);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Fase 1 · Fundaciones</div>
+        <div class="roadmap-card">
+          <div class="roadmap-item">Integración CRM-DMS operativa</div>
+          <div class="roadmap-item">Segmentación disponible en todas las áreas</div>
+          <div class="roadmap-item">Gobierno de datos establecido</div>
+          <div class="roadmap-item">Capacidades analíticas base</div>
+          <div class="roadmap-item">Reporting ejecutivo básico</div>
+          <div class="roadmap-item">Visibilidad segmento en Postventa</div>
+        </div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="roadmap-dot ph2">2</div>
+        <div style="text-align:center;font-size:var(--ts-xs);font-weight:700;color:#2563eb;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Fase 2 · Activación</div>
+        <div class="roadmap-card">
+          <div class="roadmap-item">Touchpoints básicos operativos</div>
+          <div class="roadmap-item">Customer Care diferenciado</div>
+          <div class="roadmap-item">Programa de onboarding Ford/Subaru</div>
+          <div class="roadmap-item">Campañas relacionales básicas</div>
+          <div class="roadmap-item">Segmento visible en WhatsApp</div>
+          <div class="roadmap-item">Primer ciclo de medición</div>
+        </div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="roadmap-dot ph3">3</div>
+        <div style="text-align:center;font-size:var(--ts-xs);font-weight:700;color:#7c3aed;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Fase 3 · Personalización</div>
+        <div class="roadmap-card">
+          <div class="roadmap-item">Acciones diferenciadas por segmento</div>
+          <div class="roadmap-item">Estrategias específicas por marca</div>
+          <div class="roadmap-item">Acciones por cuadrante de valor</div>
+          <div class="roadmap-item">Motor de campañas automatizado</div>
+          <div class="roadmap-item">Programa de renovación inteligente</div>
+          <div class="roadmap-item">Evento VIP anual</div>
+        </div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="roadmap-dot ph4">4</div>
+        <div style="text-align:center;font-size:var(--ts-xs);font-weight:700;color:var(--fire);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Fase 4 · Optimización</div>
+        <div class="roadmap-card">
+          <div class="roadmap-item">Modelos predictivos de propensión</div>
+          <div class="roadmap-item">Scoring de riesgo de fuga</div>
+          <div class="roadmap-item">Optimización automática ROI</div>
+          <div class="roadmap-item">Renovación inteligente ML</div>
+          <div class="roadmap-item">Test A/B continuo</div>
+          <div class="roadmap-item">Mejora continua basada en datos</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon green">⚡</div>
+          <div><div class="card-title">Acciones de Impacto Inmediato</div><div class="card-subtitle">Quick wins: primeros 90 días</div></div>
+        </div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:rgba(38,106,86,.05);border-radius:var(--r-sm)">
+              <span style="font-size:20px">1️⃣</span>
+              <div><div style="font-weight:700;font-size:var(--ts-sm)">Activar segmento en gestión comercial VN/VU</div><div style="font-size:var(--ts-xs);color:var(--text-muted)">Garantizar que el asesor vea el segmento antes de cada contacto. Impacto inmediato en tasa de cierre.</div></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:rgba(38,106,86,.05);border-radius:var(--r-sm)">
+              <span style="font-size:20px">2️⃣</span>
+              <div><div style="font-weight:700;font-size:var(--ts-sm)">Protocolo de onboarding Ford y Subaru</div><div style="font-size:var(--ts-xs);color:var(--text-muted)">Llamada de bienvenida a 7 días y agendamiento de primera mantención en entrega. Sin tecnología nueva.</div></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;padding:10px;background:rgba(38,106,86,.05);border-radius:var(--r-sm)">
+              <span style="font-size:20px">3️⃣</span>
+              <div><div style="font-weight:700;font-size:var(--ts-sm)">Campaña de renovación clientes 30-48 meses</div><div style="font-size:var(--ts-xs);color:var(--text-muted)">Extraer lista desde CRM y asignar a asesores comerciales. Potencial de cierre alto y costo bajo.</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon fire">🎯</div>
+          <div><div class="card-title">Factores Críticos de Éxito</div><div class="card-subtitle">Lo que determina el resultado</div></div>
+        </div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:var(--ts-sm)"><span style="color:var(--fire);font-weight:700;flex-shrink:0;margin-top:1px">→</span>Liderazgo ejecutivo comprometido con el uso de segmentación</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:var(--ts-sm)"><span style="color:var(--fire);font-weight:700;flex-shrink:0;margin-top:1px">→</span>Integración tecnológica CRM-DMS como prioridad de IT</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:var(--ts-sm)"><span style="color:var(--fire);font-weight:700;flex-shrink:0;margin-top:1px">→</span>Capacitación a equipos comerciales y Postventa</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:var(--ts-sm)"><span style="color:var(--fire);font-weight:700;flex-shrink:0;margin-top:1px">→</span>KPIs del programa integrados a metas de equipos</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:var(--ts-sm)"><span style="color:var(--fire);font-weight:700;flex-shrink:0;margin-top:1px">→</span>Inteligencia de Clientes con recursos y autoridad para orquestar</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:var(--ts-sm)"><span style="color:var(--fire);font-weight:700;flex-shrink:0;margin-top:1px">→</span>Revisión mensual de resultados y ajuste continuo</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;font-size:var(--ts-sm)"><span style="color:var(--fire);font-weight:700;flex-shrink:0;margin-top:1px">→</span>Filosofía de confidencialidad del segmento reforzada permanentemente</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Programa Estratégico de Gestión del Ciclo de Vida y Fidelización de Clientes Automotrices · Versión 1.0 · Confidencial</p>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// TAB NAVIGATION
+// ═══════════════════════════════════════════════════════════════════
+(function() {
+  const buttons = document.querySelectorAll('.tab-btn');
+  const panels  = document.querySelectorAll('.tab-panel');
+
+  function activateTab(tabId) {
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
+    panels.forEach(p => p.classList.toggle('active', p.id === tabId));
+    // scroll nav button into view
+    const activeBtn = document.querySelector('.tab-btn.active');
+    if (activeBtn) activeBtn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => activateTab(btn.dataset.tab));
+  });
+
+  // Handle URL hash
+  const hash = location.hash.replace('#','');
+  if (hash && document.getElementById(hash)) activateTab(hash);
+})();
+</script>
+</body>
+</html>
