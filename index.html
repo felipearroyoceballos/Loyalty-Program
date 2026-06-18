@@ -1044,6 +1044,131 @@ tbody td.muted { color: var(--text-muted); }
   color: var(--forest);
 }
 
+/*══════════════════════════════════════════════
+DESPLIEGUE
+══════════════════════════════════════════════*/
+
+.deploy-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:20px;
+}
+
+.deploy-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:24px;
+  box-shadow:var(--shadow-sm);
+  transition:.2s;
+}
+
+.deploy-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-lg);
+}
+
+.deploy-top{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.deploy-dot{
+  width:16px;
+  height:16px;
+  border-radius:50%;
+}
+
+.deploy-title{
+  font-size:var(--ts-lg);
+  font-weight:800;
+  color:var(--deep);
+}
+
+.deploy-body{
+  font-size:var(--ts-sm);
+  line-height:1.7;
+  color:var(--text-muted);
+}
+
+.deploy-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:18px;
+}
+
+.deploy-tag{
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:700;
+}
+
+/* colores */
+
+.deploy-retener .deploy-dot{
+  background:var(--forest);
+}
+
+.deploy-retener .deploy-tag{
+  background:rgba(38,106,86,.10);
+  color:var(--forest);
+}
+
+.deploy-renovar .deploy-dot{
+  background:var(--fire);
+}
+
+.deploy-renovar .deploy-tag{
+  background:rgba(255,77,0,.10);
+  color:var(--fire);
+}
+
+.deploy-activar .deploy-dot{
+  background:#2563eb;
+}
+
+.deploy-activar .deploy-tag{
+  background:rgba(37,99,235,.10);
+  color:#2563eb;
+}
+
+/* ciencia de datos */
+
+.data-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:20px;
+}
+
+.data-card{
+  background:var(--deep);
+  border-radius:16px;
+  padding:28px;
+  color:white;
+  box-shadow:var(--shadow-md);
+}
+
+.data-icon{
+  font-size:32px;
+  margin-bottom:16px;
+}
+
+.data-title{
+  font-size:var(--ts-lg);
+  font-weight:800;
+  margin-bottom:14px;
+}
+
+.data-body{
+  line-height:1.8;
+  color:rgba(255,255,255,.82);
+  font-size:var(--ts-sm);
+}
+   
 /* ═══════════════════════════════════════════════════════════════════
    BRAND CATEGORY DISPLAY
 ═══════════════════════════════════════════════════════════════════ */
@@ -1392,168 +1517,138 @@ tbody td.muted { color: var(--text-muted); }
   letter-spacing: .06em;
   text-transform: uppercase;
 }
-</style>
-</head>
-<body>
 
-/*═══════════════════════════════════════════════════════════════
-  DESPLIEGUE
-═══════════════════════════════════════════════════════════════*/
-.deployment-grid{
+/* ==========================================================
+   DESPLIEGUE
+========================================================== */
+
+.deploy-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:22px;
-  margin-top:30px;
+  gap:24px;
+  margin-top:32px;
 }
 
-.deployment-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:var(--r-md);
+.deploy-card{
+  background:#ffffff;
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:18px;
   padding:28px;
-  box-shadow:var(--shadow-sm);
-  position:relative;
-  overflow:hidden;
+  box-shadow:0 6px 20px rgba(0,0,0,.06);
 }
 
-.deployment-card::before{
-  content:'';
-  position:absolute;
-  left:0;
-  top:0;
-  width:6px;
-  height:100%;
+.deploy-head{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:22px;
 }
 
 .deploy-dot{
   width:18px;
   height:18px;
   border-radius:50%;
-  margin-bottom:18px;
+  flex-shrink:0;
 }
 
 .deploy-title{
-  font-size:var(--ts-xl);
+  font-size:1.25rem;
   font-weight:800;
   color:var(--deep);
-  margin-bottom:14px;
-}
-
-.deploy-subtitle{
-  font-size:var(--ts-xs);
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  color:var(--text-muted);
-  margin-bottom:10px;
-  font-weight:700;
 }
 
 .deploy-body{
-  font-size:var(--ts-sm);
-  color:var(--text);
-  line-height:1.7;
+  line-height:1.75;
+  color:var(--text-muted);
 }
 
-.deploy-actions{
-  margin-top:18px;
+.deploy-tags{
   display:flex;
   flex-wrap:wrap;
   gap:8px;
+  margin-top:22px;
 }
 
-.deploy-chip{
-  padding:6px 10px;
-  border-radius:999px;
-  font-size:var(--ts-xs);
+.deploy-tag{
+  padding:6px 12px;
+  border-radius:30px;
+  font-size:.75rem;
   font-weight:700;
 }
 
-/* colores similares a los motores */
-
-.deploy-retener::before{
-  background:var(--forest);
-}
+/* RETENER */
 
 .deploy-retener .deploy-dot{
   background:var(--forest);
 }
 
-.deploy-retener .deploy-chip{
-  background:rgba(38,106,86,.10);
+.deploy-retener .deploy-tag{
+  background:rgba(38,106,86,.12);
   color:var(--forest);
 }
 
-.deploy-renovar::before{
-  background:var(--fire);
-}
+/* RENOVAR */
 
 .deploy-renovar .deploy-dot{
   background:var(--fire);
 }
 
-.deploy-renovar .deploy-chip{
-  background:rgba(255,77,0,.10);
+.deploy-renovar .deploy-tag{
+  background:rgba(255,77,0,.12);
   color:var(--fire);
 }
 
-.deploy-activar::before{
-  background:#8b5cf6;
-}
+/* ACTIVAR */
 
 .deploy-activar .deploy-dot{
-  background:#8b5cf6;
+  background:#2563eb;
 }
 
-.deploy-activar .deploy-chip{
-  background:rgba(139,92,246,.12);
-  color:#8b5cf6;
+.deploy-activar .deploy-tag{
+  background:rgba(37,99,235,.12);
+  color:#2563eb;
 }
 
-/* ciencia de datos */
+/* CIENCIA DE DATOS */
 
 .data-grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-  gap:22px;
-  margin-top:40px;
+  gap:24px;
+  margin-top:36px;
 }
 
 .data-card{
   background:linear-gradient(
-      135deg,
-      rgba(22,28,36,.96),
-      rgba(33,40,50,.96)
+    135deg,
+    var(--deep),
+    #1f2937
   );
-  border-radius:var(--r-md);
-  padding:28px;
+  border-radius:18px;
+  padding:30px;
   color:white;
-  box-shadow:var(--shadow-md);
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
 }
 
 .data-icon{
-  width:54px;
-  height:54px;
-  border-radius:14px;
-  background:rgba(255,255,255,.10);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:26px;
+  font-size:2rem;
   margin-bottom:18px;
 }
 
 .data-title{
-  font-size:var(--ts-lg);
+  font-size:1.25rem;
   font-weight:800;
-  margin-bottom:14px;
+  margin-bottom:18px;
 }
 
 .data-body{
-  font-size:var(--ts-sm);
-  line-height:1.8;
+  line-height:1.85;
   color:rgba(255,255,255,.85);
 }
-   
+</style>
+</head>
+<body>
+
 <!-- ═══════════════════════════════════════════════════════════════
      SITE HEADER
 ═══════════════════════════════════════════════════════════════════ -->
@@ -1580,15 +1675,15 @@ tbody td.muted { color: var(--text-muted); }
     <button class="tab-btn" data-tab="t05"><span class="tab-num">5</span>Marcas</button>
     <button class="tab-btn" data-tab="t06" style="display:none"><span class="tab-num">6</span>Cuadrantes</button>
     <button class="tab-btn" data-tab="t07"><span class="tab-num">7</span>Customer Journey</button>
-    <button class="tab-btn" data-tab="t08" style="display:none"><span class="tab-num">8</span>Touchpoints Transac.</button>
-    <button class="tab-btn" data-tab="t09" style="display:none"><span class="tab-num">9</span>Touchpoints Relac.</button>
-    <button class="tab-btn" data-tab="t10" style="display:none"><span class="tab-num">10</span>Beneficios</button>
-    <button class="tab-btn" data-tab="t11" style="display:none"><span class="tab-num">11</span>Renovación Inteligente</button>
-    <button class="tab-btn" data-tab="t12" style="display:none"><span class="tab-num">12</span>Modelo Operativo</button>
-    <button class="tab-btn" data-tab="t13" style="display:none"><span class="tab-num">13</span>Procesos &amp; Tech</button>
-    <button class="tab-btn" data-tab="t14" style="display:none"><span class="tab-num">14</span>KPIs</button>
-    <button class="tab-btn" data-tab="t15" style="display:none"><span class="tab-num">15</span>Roadmap</button>
-    <button class="tab-btn" data-tab="t16"><span class="tab-num">16</span>Despliegue</button>
+    <button class="tab-btn" data-tab="t07a"><span class="tab-num">8</span>Despliegue</button>
+    <button class="tab-btn" data-tab="t08" style="display:none"><span class="tab-num">9</span>Touchpoints Transac.</button>
+    <button class="tab-btn" data-tab="t09" style="display:none"><span class="tab-num">10</span>Touchpoints Relac.</button>
+    <button class="tab-btn" data-tab="t10" style="display:none"><span class="tab-num">11</span>Beneficios</button>
+    <button class="tab-btn" data-tab="t11" style="display:none"><span class="tab-num">12</span>Renovación Inteligente</button>
+    <button class="tab-btn" data-tab="t12" style="display:none"><span class="tab-num">13</span>Modelo Operativo</button>
+    <button class="tab-btn" data-tab="t13" style="display:none"><span class="tab-num">14</span>Procesos &amp; Tech</button>
+    <button class="tab-btn" data-tab="t14" style="display:none"><span class="tab-num">15</span>KPIs</button>
+    <button class="tab-btn" data-tab="t15" style="display:none"><span class="tab-num">16</span>Roadmap</button>
   </div>
 </nav>
 
@@ -2745,7 +2840,7 @@ tbody td.muted { color: var(--text-muted); }
   </div>
 </section>
 
-<section class="tab-panel" id="t12a">
+<section class="tab-panel" id="t07a">
 
   <div class="page-hero">
     <div class="hero-eyebrow">
@@ -2753,16 +2848,16 @@ tbody td.muted { color: var(--text-muted); }
     </div>
 
     <h1 class="hero-title">
-      Despliegue del Programa y
-      <em>Orquestación del Ciclo de Vida</em>
+      Despliegue y Orquestación
+      <em>del Ciclo de Vida</em>
     </h1>
 
     <p class="hero-desc">
-      El despliegue busca ejecutar de manera coordinada las
-      acciones de retención, renovación y activación,
+      El despliegue operacional busca transformar la
+      estrategia de fidelización en acciones coordinadas,
       anticipándose a las necesidades del cliente y
-      aprovechando el valor de la información disponible en
-      cada momento del Journey.
+      ejecutando protocolos de Retención, Renovación y
+      Activación en el momento oportuno.
     </p>
   </div>
 
@@ -2778,164 +2873,106 @@ tbody td.muted { color: var(--text-muted); }
       </h2>
     </div>
 
-    <div class="deployment-grid">
+    <div class="deploy-grid">
 
       <!-- RETENER -->
 
-      <div class="deployment-card deploy-retener">
+      <div class="deploy-card deploy-retener">
 
-        <div class="deploy-dot"></div>
-
-        <div class="deploy-subtitle">
-          Motor Estratégico
-        </div>
-
-        <div class="deploy-title">
-          Retener
+        <div class="deploy-head">
+          <div class="deploy-dot"></div>
+          <div class="deploy-title">
+            Retener
+          </div>
         </div>
 
         <div class="deploy-body">
 
           Mantener al cliente dentro del ecosistema de
-          Postventa mediante acciones preventivas,
-          customer care y protocolos de acompañamiento.
+          Postventa mediante protocolos preventivos,
+          customer care y acompañamiento continuo.
 
           <br><br>
 
           Especial foco en marcas con riesgo de fuga
-          hacia talleres independientes y clientes
-          de alto valor.
+          y clientes de mayor valor.
 
         </div>
 
-        <div class="deploy-actions">
-
-          <span class="deploy-chip">
-            Welcome Call
-          </span>
-
-          <span class="deploy-chip">
-            Chequeos Preventivos
-          </span>
-
-          <span class="deploy-chip">
-            Customer Care
-          </span>
-
-          <span class="deploy-chip">
-            Mantenciones
-          </span>
-
+        <div class="deploy-tags">
+          <span class="deploy-tag">Customer Care</span>
+          <span class="deploy-tag">Mantenciones</span>
+          <span class="deploy-tag">Chequeos</span>
+          <span class="deploy-tag">Seguimiento</span>
         </div>
 
       </div>
 
       <!-- RENOVAR -->
 
-      <div class="deployment-card deploy-renovar">
+      <div class="deploy-card deploy-renovar">
 
-        <div class="deploy-dot"></div>
-
-        <div class="deploy-subtitle">
-          Motor Estratégico
-        </div>
-
-        <div class="deploy-title">
-          Renovar
+        <div class="deploy-head">
+          <div class="deploy-dot"></div>
+          <div class="deploy-title">
+            Renovar
+          </div>
         </div>
 
         <div class="deploy-body">
 
-          Identificar clientes en la ventana de
-          mayor probabilidad de renovación,
-          entre los 30 y 48 meses,
-          para activar campañas personalizadas y
-          maximizar la recompra.
-
-          <br><br>
-
-          Priorizar segmentos VIP y Oro,
-          aprovechando VPP y ventas integrales.
+          Identificar clientes entre los
+          30 y 48 meses desde compra para
+          activar procesos de renovación,
+          valorización VPP y campañas
+          personalizadas.
 
         </div>
 
-        <div class="deploy-actions">
-
-          <span class="deploy-chip">
-            Valorización VPP
-          </span>
-
-          <span class="deploy-chip">
-            Oferta Personalizada
-          </span>
-
-          <span class="deploy-chip">
-            Renovación Temprana
-          </span>
-
-          <span class="deploy-chip">
-            Financiamiento
-          </span>
-
+        <div class="deploy-tags">
+          <span class="deploy-tag">Renovación</span>
+          <span class="deploy-tag">VPP</span>
+          <span class="deploy-tag">Ofertas</span>
+          <span class="deploy-tag">Financiamiento</span>
         </div>
 
       </div>
 
       <!-- ACTIVAR -->
 
-      <div class="deployment-card deploy-activar">
+      <div class="deploy-card deploy-activar">
 
-        <div class="deploy-dot"></div>
-
-        <div class="deploy-subtitle">
-          Motor Estratégico
-        </div>
-
-        <div class="deploy-title">
-          Activar
+        <div class="deploy-head">
+          <div class="deploy-dot"></div>
+          <div class="deploy-title">
+            Activar
+          </div>
         </div>
 
         <div class="deploy-body">
 
-          Mantener una relación permanente y
-          emocional con el cliente mediante
-          interacciones no transaccionales,
-          aumentando engagement,
-          referidos y conocimiento de marca.
+          Mantener una relación emocional y
+          permanente mediante interacciones
+          no transaccionales, fortaleciendo
+          el engagement y el conocimiento
+          del cliente.
 
         </div>
 
-        <div class="deploy-actions">
-
-          <span class="deploy-chip">
-            Cumpleaños
-          </span>
-
-          <span class="deploy-chip">
-            Aniversarios
-          </span>
-
-          <span class="deploy-chip">
-            Eventos
-          </span>
-
-          <span class="deploy-chip">
-            Contenido Personalizado
-          </span>
-
+        <div class="deploy-tags">
+          <span class="deploy-tag">Eventos</span>
+          <span class="deploy-tag">Cumpleaños</span>
+          <span class="deploy-tag">Aniversarios</span>
+          <span class="deploy-tag">Contenido</span>
         </div>
 
       </div>
 
     </div>
 
-    <!-- CIENCIA DE DATOS -->
+    <div style="height:70px;"></div>
 
-    <div
-      class="section-title-group"
-      style="margin-top:70px"
-    >
-
+    <div class="section-title-group">
       <div class="section-eyebrow">
         Ciencia de Datos y Tecnología
       </div>
@@ -2943,7 +2980,6 @@ tbody td.muted { color: var(--text-muted); }
       <h2 class="section-title">
         Capacidades Estratégicas Habilitantes
       </h2>
-
     </div>
 
     <div class="data-grid">
@@ -2963,11 +2999,14 @@ tbody td.muted { color: var(--text-muted); }
         <div class="data-body">
 
           Determinar automáticamente en qué
-          etapa del Journey se encuentra cada
-          cliente y definir la mejor acción,
-          momento y canal de contacto.
+          etapa del Journey se encuentra
+          cada cliente y definir qué acción
+          tomar, en qué momento y por qué
+          canal.
 
-          Considerar variables como:
+          <br><br>
+
+          Considera variables como:
 
           • Contactabilidad histórica<br>
           • Campañas anteriores<br>
@@ -2975,10 +3014,7 @@ tbody td.muted { color: var(--text-muted); }
           • Uso de Postventa<br>
           • VPP<br>
           • Historial de compras<br>
-          • Frecuencia de interacción<br>
-
-          El objetivo es aumentar efectividad,
-          relevancia y ROI de las acciones.
+          • Frecuencia de interacción
 
         </div>
 
@@ -2999,17 +3035,11 @@ tbody td.muted { color: var(--text-muted); }
         <div class="data-body">
 
           Hacia el Q4, automatizar la gestión
-          de ciencia de datos y ejecución de
-          campañas.
-
-          Los sistemas deberán:
-
-          • Generar acciones automáticamente<br>
-          • Gatillar protocolos autónomos<br>
-          • Entregar bases de trabajo a equipos<br>
-          • Registrar trazabilidad de touchpoints<br>
-          • Gestionar reglas de negocio<br>
-          • Medir resultados de cada acción
+          de ciencia de datos para que los
+          sistemas permitan generar acciones,
+          gatillar protocolos autónomos y dar
+          trazabilidad completa a todos los
+          touchpoints.
 
         </div>
 
@@ -3029,23 +3059,12 @@ tbody td.muted { color: var(--text-muted); }
 
         <div class="data-body">
 
-          Hacia el Q1-2027, lograr integración
-          total de sistemas y una visión única
-          del cliente.
-
-          La organización deberá conocer:
-
-          • Qué compró el cliente<br>
-          • Qué servicios realizó<br>
-          • Qué campañas recibió<br>
-          • Qué acciones están pendientes<br>
-          • Cuándo debe ser contactado nuevamente<br>
-          • Qué protocolos corresponden ejecutar
-
-          El objetivo es anticipar recursos,
-          tiempos y acciones, consolidando una
-          cultura centrada en el conocimiento
-          profundo del cliente.
+          Hacia el Q1-2027, lograr una visión
+          única del cliente integrando CRM,
+          DMS y canales de contacto, para
+          anticipar tiempos, recursos y
+          protocolos de actuación en cada
+          momento del ciclo de vida.
 
         </div>
 
@@ -4206,4 +4225,3 @@ tbody td.muted { color: var(--text-muted); }
 </script>
 </body>
 </html>
-
