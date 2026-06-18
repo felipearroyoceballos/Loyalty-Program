@@ -2843,171 +2843,360 @@ DESPLIEGUE
 <section class="tab-panel" id="t07a">
 
   <div class="page-hero">
-    <div class="hero-eyebrow">
-      Especial Despliegue
-    </div>
-
-    <h1 class="hero-title">
-      Despliegue y Orquestación
-      <em>del Ciclo de Vida</em>
-    </h1>
-
-    <p class="hero-desc">
-      El despliegue operacional busca transformar la
-      estrategia de fidelización en acciones coordinadas,
-      anticipándose a las necesidades del cliente y
-      ejecutando protocolos de Retención, Renovación y
-      Activación en el momento oportuno.
-    </p>
+    <div class="hero-eyebrow">Fidelización</div>
+    <h1 class="hero-title">Journey · <em>Ciclo de Vida del Cliente</em></h1>
+    <p class="hero-desc">Acciones tácticas organizadas por etapa del ciclo de vida y horizonte de implementación: Quick-wins (31-07), Q3-2026 y Q4-2026.</p>
   </div>
 
-  <div class="section-body">
+  <div class="section-body" style="padding-top:32px; padding-bottom:48px; overflow-x:auto;">
 
-    <div class="section-title-group">
-      <div class="section-eyebrow">
-        Gestión Operacional
+    <!-- ── JOURNEY TABLE ─────────────────────────────────────── -->
+    <style>
+      /* ── Journey table tokens ── */
+      .jt-wrap { min-width: 1100px; }
+
+      /* Arrow banner */
+      .jt-arrow-row {
+        display: grid;
+        grid-template-columns: 130px repeat(6, 1fr);
+        margin-bottom: 4px;
+        gap: 0;
+      }
+      .jt-arrow-spacer { /* left label gutter */ }
+      .jt-arrow-banner {
+        grid-column: 2 / -1;
+        background: linear-gradient(90deg, #7ecba1 0%, #4aad78 60%, #2f8c5c 100%);
+        border-radius: 6px 30px 30px 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: .82rem;
+        font-weight: 800;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: #fff;
+        padding: 9px 24px;
+        position: relative;
+        clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 50%, calc(100% - 28px) 100%, 0 100%);
+      }
+
+      /* Header row */
+      .jt-header-row {
+        display: grid;
+        grid-template-columns: 130px repeat(6, 1fr);
+        gap: 0;
+        margin-bottom: 2px;
+      }
+      .jt-col-header {
+        padding: 10px 8px 8px;
+        text-align: center;
+        font-size: .72rem;
+        font-weight: 800;
+        letter-spacing: .05em;
+        text-transform: uppercase;
+        color: var(--deep);
+        border-bottom: 2px solid var(--border);
+        line-height: 1.3;
+      }
+      .jt-col-header small {
+        display: block;
+        font-weight: 500;
+        font-size: .66rem;
+        color: var(--text-muted);
+        letter-spacing: .03em;
+        text-transform: none;
+        margin-top: 2px;
+      }
+
+      /* Body rows */
+      .jt-body-row {
+        display: grid;
+        grid-template-columns: 130px repeat(6, 1fr);
+        gap: 0;
+        border-bottom: 1px solid var(--gray-100);
+        min-height: 90px;
+      }
+      .jt-body-row:last-child { border-bottom: none; }
+
+      /* Row label (Quick-wins / Q3 / Q4) */
+      .jt-row-label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 8px;
+        background: #4a90d9;
+        border-radius: 6px;
+        margin: 8px 10px 8px 0;
+        font-size: .78rem;
+        font-weight: 800;
+        color: #fff;
+        text-align: center;
+        line-height: 1.3;
+        letter-spacing: .02em;
+        align-self: stretch;
+      }
+
+      /* Cell */
+      .jt-cell {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 6px;
+        padding: 14px 6px;
+        border-left: 1px solid var(--gray-100);
+        min-height: 90px;
+      }
+
+      /* Bubble */
+      .jt-bubble {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      /* Colour variants */
+      .jt-bubble.blue   { background: #5ba9e8; }
+      .jt-bubble.purple { background: #9b7ec8; }
+      .jt-bubble.green  { background: #5bbc8a; }
+      .jt-bubble.orange { background: #f0a83c; }
+      .jt-bubble.outline-blue {
+        background: transparent;
+        border: 3px solid #5ba9e8;
+      }
+
+      /* Action label */
+      .jt-label {
+        font-size: .70rem;
+        font-weight: 600;
+        color: var(--text);
+        text-align: center;
+        line-height: 1.35;
+        max-width: 100px;
+      }
+    </style>
+
+    <div class="jt-wrap">
+
+      <!-- ARROW BANNER -->
+      <div class="jt-arrow-row">
+        <div class="jt-arrow-spacer"></div>
+        <div class="jt-arrow-banner">Journey · Ciclo de Vida del Cliente</div>
       </div>
 
-      <h2 class="section-title">
-        Grandes Frentes de Despliegue
-      </h2>
+      <!-- COLUMN HEADERS -->
+      <div class="jt-header-row">
+        <div></div><!-- gutter -->
+        <div class="jt-col-header">Etapa 0<small>Prospección</small></div>
+        <div class="jt-col-header">Etapa 1<small>Gestión de venta</small></div>
+        <div class="jt-col-header">Etapa 2<small>On Boarding (0-6 m)</small></div>
+        <div class="jt-col-header">Etapa 3<small>Retención (6-12)</small></div>
+        <div class="jt-col-header">Etapa 4<small>Activación</small></div>
+        <div class="jt-col-header">Etapa 5<small>Renovación</small></div>
+      </div>
+
+      <!-- ROW: Quick-wins (31-07) -->
+      <div class="jt-body-row">
+        <div class="jt-row-label">Quick-wins<br>(31-07)</div>
+
+        <!-- Etapa 0 -->
+        <div class="jt-cell">
+          <div class="jt-bubble blue"></div>
+          <div class="jt-label">Temperatura Lead con segmento</div>
+        </div>
+
+        <!-- Etapa 1: dos acciones -->
+        <div class="jt-cell" style="flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:8px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble purple"></div>
+            <div class="jt-label">Kit de Entrega Especial (Marcas Foco)</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble green"></div>
+            <div class="jt-label">Pre-agenda MPP</div>
+          </div>
+        </div>
+
+        <!-- Etapa 2: dos acciones -->
+        <div class="jt-cell" style="flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:8px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble orange"></div>
+            <div class="jt-label">Llamado cumpleaños</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble orange"></div>
+            <div class="jt-label">Atención prioritaria SAC</div>
+          </div>
+        </div>
+
+        <!-- Etapa 3: dos acciones -->
+        <div class="jt-cell" style="flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:8px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble green"></div>
+            <div class="jt-label">Campaña Sniper</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble green"></div>
+            <div class="jt-label">Clínica impulsa mantenciones</div>
+          </div>
+        </div>
+
+        <!-- Etapa 4: dos acciones -->
+        <div class="jt-cell" style="flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:8px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble green"></div>
+            <div class="jt-label">Campaña Sniper</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble green"></div>
+            <div class="jt-label">Clínica impulsa manteniones</div>
+          </div>
+        </div>
+
+        <!-- Etapa 5 -->
+        <div class="jt-cell">
+          <div class="jt-bubble blue"></div>
+          <div class="jt-label">Activación Renovación</div>
+        </div>
+      </div>
+
+      <!-- ROW: Q3-2026 -->
+      <div class="jt-body-row">
+        <div class="jt-row-label">Q3-2026</div>
+
+        <!-- Etapa 0 -->
+        <div class="jt-cell">
+          <div class="jt-bubble blue"></div>
+          <div class="jt-label">Atención Diferenciada Lead</div>
+        </div>
+
+        <!-- Etapa 1: dos acciones -->
+        <div class="jt-cell" style="flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:8px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble purple"></div>
+            <div class="jt-label">Kit de Entrega Especial Despliegue</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble green"></div>
+            <div class="jt-label">Pre-agenda automática</div>
+          </div>
+        </div>
+
+        <!-- Etapa 2 -->
+        <div class="jt-cell">
+          <div class="jt-bubble orange"></div>
+          <div class="jt-label">Welcome Call</div>
+        </div>
+
+        <!-- Etapa 3: dos acciones -->
+        <div class="jt-cell" style="flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:8px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble purple"></div>
+            <div class="jt-label">Regalo Mantención</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble green"></div>
+            <div class="jt-label">Activación 1era Mant</div>
+          </div>
+        </div>
+
+        <!-- Etapa 4: dos acciones -->
+        <div class="jt-cell" style="flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:8px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble purple"></div>
+            <div class="jt-label">Regalo Mantención</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble green"></div>
+            <div class="jt-label">Activación 2-3-4 Mant</div>
+          </div>
+        </div>
+
+        <!-- Etapa 5 -->
+        <div class="jt-cell">
+          <div class="jt-bubble blue"></div>
+          <div class="jt-label">Tasación VPP Programada</div>
+        </div>
+      </div>
+
+      <!-- ROW: Q4-2026 -->
+      <div class="jt-body-row">
+        <div class="jt-row-label">Q4-2026</div>
+
+        <!-- Etapa 0: vacía -->
+        <div class="jt-cell"></div>
+
+        <!-- Etapa 1 -->
+        <div class="jt-cell">
+          <div class="jt-bubble orange"></div>
+          <div class="jt-label">Código referidos</div>
+        </div>
+
+        <!-- Etapa 2: dos acciones -->
+        <div class="jt-cell" style="flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:8px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble orange"></div>
+            <div class="jt-label">Carpeta digital</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex:0 0 auto">
+            <div class="jt-bubble orange"></div>
+            <div class="jt-label">Llamada seguimiento</div>
+          </div>
+        </div>
+
+        <!-- Etapa 3 -->
+        <div class="jt-cell">
+          <div class="jt-bubble purple"></div>
+          <div class="jt-label">Eventos VIP</div>
+        </div>
+
+        <!-- Etapa 4 -->
+        <div class="jt-cell">
+          <div class="jt-bubble purple"></div>
+          <div class="jt-label">Eventos VIP</div>
+        </div>
+
+        <!-- Etapa 5: vacía -->
+        <div class="jt-cell"></div>
+      </div>
+
+    </div><!-- /.jt-wrap -->
+
+    <!-- ── COLOUR LEGEND ── -->
+    <div style="display:flex;flex-wrap:wrap;gap:20px;margin-top:32px;padding-top:20px;border-top:1px solid var(--border);">
+      <div style="display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--text-muted)">
+        <div style="width:16px;height:16px;border-radius:50%;background:#5ba9e8;flex-shrink:0"></div>Prospección / Renovación
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--text-muted)">
+        <div style="width:16px;height:16px;border-radius:50%;background:#9b7ec8;flex-shrink:0"></div>Gestión de venta / Mantención
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--text-muted)">
+        <div style="width:16px;height:16px;border-radius:50%;background:#5bbc8a;flex-shrink:0"></div>Onboarding / Activación Postventa
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--text-muted)">
+        <div style="width:16px;height:16px;border-radius:50%;background:#f0a83c;flex-shrink:0"></div>Contacto / Seguimiento
+      </div>
     </div>
 
-    <div class="deploy-grid">
-
-      <!-- RETENER -->
-
-      <div class="deploy-card deploy-retener">
-
-        <div class="deploy-head">
-          <div class="deploy-dot"></div>
-          <div class="deploy-title">
-            Retener
-          </div>
-        </div>
-
-        <div class="deploy-body">
-
-          Mantener al cliente dentro del ecosistema de
-          Postventa mediante protocolos preventivos,
-          customer care y acompañamiento continuo.
-
-          <br><br>
-
-          Especial foco en marcas con riesgo de fuga
-          y clientes de mayor valor.
-
-        </div>
-
-        <div class="deploy-tags">
-          <span class="deploy-tag">Customer Care</span>
-          <span class="deploy-tag">Mantenciones</span>
-          <span class="deploy-tag">Chequeos</span>
-          <span class="deploy-tag">Seguimiento</span>
-        </div>
-
-      </div>
-
-      <!-- RENOVAR -->
-
-      <div class="deploy-card deploy-renovar">
-
-        <div class="deploy-head">
-          <div class="deploy-dot"></div>
-          <div class="deploy-title">
-            Renovar
-          </div>
-        </div>
-
-        <div class="deploy-body">
-
-          Identificar clientes entre los
-          30 y 48 meses desde compra para
-          activar procesos de renovación,
-          valorización VPP y campañas
-          personalizadas.
-
-        </div>
-
-        <div class="deploy-tags">
-          <span class="deploy-tag">Renovación</span>
-          <span class="deploy-tag">VPP</span>
-          <span class="deploy-tag">Ofertas</span>
-          <span class="deploy-tag">Financiamiento</span>
-        </div>
-
-      </div>
-
-      <!-- ACTIVAR -->
-
-      <div class="deploy-card deploy-activar">
-
-        <div class="deploy-head">
-          <div class="deploy-dot"></div>
-          <div class="deploy-title">
-            Activar
-          </div>
-        </div>
-
-        <div class="deploy-body">
-
-          Mantener una relación emocional y
-          permanente mediante interacciones
-          no transaccionales, fortaleciendo
-          el engagement y el conocimiento
-          del cliente.
-
-        </div>
-
-        <div class="deploy-tags">
-          <span class="deploy-tag">Eventos</span>
-          <span class="deploy-tag">Cumpleaños</span>
-          <span class="deploy-tag">Aniversarios</span>
-          <span class="deploy-tag">Contenido</span>
-        </div>
-
-      </div>
-
-    </div>
-
-    <div style="height:70px;"></div>
+    <!-- ── CAPACIDADES ESTRATÉGICAS HABILITANTES ── -->
+    <div style="height:56px;"></div>
 
     <div class="section-title-group">
-      <div class="section-eyebrow">
-        Ciencia de Datos y Tecnología
-      </div>
-
-      <h2 class="section-title">
-        Capacidades Estratégicas Habilitantes
-      </h2>
+      <div class="section-eyebrow">Ciencia de Datos y Tecnología</div>
+      <h2 class="section-title">Capacidades Estratégicas Habilitantes</h2>
     </div>
 
     <div class="data-grid">
 
-      <!-- Predictivo -->
-
       <div class="data-card">
-
-        <div class="data-icon">
-          📈
-        </div>
-
-        <div class="data-title">
-          Predictivo del Journey
-        </div>
-
+        <div class="data-icon">📈</div>
+        <div class="data-title">Predictivo del Journey</div>
         <div class="data-body">
-
-          Determinar automáticamente en qué
-          etapa del Journey se encuentra
-          cada cliente y definir qué acción
-          tomar, en qué momento y por qué
-          canal.
-
-          <br><br>
-
-          Considera variables como:
-
+          Determinar automáticamente en qué etapa del Journey se encuentra cada cliente y definir qué acción tomar, en qué momento y por qué canal.<br><br>
+          Considera variables como:<br>
           • Contactabilidad histórica<br>
           • Campañas anteriores<br>
           • No Show<br>
@@ -3015,59 +3204,23 @@ DESPLIEGUE
           • VPP<br>
           • Historial de compras<br>
           • Frecuencia de interacción
-
         </div>
-
       </div>
 
-      <!-- Automatización -->
-
       <div class="data-card">
-
-        <div class="data-icon">
-          ⚙️
-        </div>
-
-        <div class="data-title">
-          Automatización
-        </div>
-
+        <div class="data-icon">⚙️</div>
+        <div class="data-title">Automatización</div>
         <div class="data-body">
-
-          Hacia el Q4, automatizar la gestión
-          de ciencia de datos para que los
-          sistemas permitan generar acciones,
-          gatillar protocolos autónomos y dar
-          trazabilidad completa a todos los
-          touchpoints.
-
+          Hacia el Q4, automatizar la gestión de ciencia de datos para que los sistemas permitan generar acciones, gatillar protocolos autónomos y dar trazabilidad completa a todos los touchpoints.
         </div>
-
       </div>
 
-      <!-- Visibilidad -->
-
       <div class="data-card">
-
-        <div class="data-icon">
-          🔍
-        </div>
-
-        <div class="data-title">
-          Visibilidad Completa
-        </div>
-
+        <div class="data-icon">🔍</div>
+        <div class="data-title">Visibilidad Completa</div>
         <div class="data-body">
-
-          Hacia el Q1-2027, lograr una visión
-          única del cliente integrando CRM,
-          DMS y canales de contacto, para
-          anticipar tiempos, recursos y
-          protocolos de actuación en cada
-          momento del ciclo de vida.
-
+          Hacia el Q1-2027, lograr una visión única del cliente integrando CRM, DMS y canales de contacto, para anticipar tiempos, recursos y protocolos de actuación en cada momento del ciclo de vida.
         </div>
-
       </div>
 
     </div>
