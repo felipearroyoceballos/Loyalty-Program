@@ -1396,6 +1396,165 @@ tbody td.muted { color: var(--text-muted); }
 </head>
 <body>
 
+/*═══════════════════════════════════════════════════════════════
+  DESPLIEGUE
+═══════════════════════════════════════════════════════════════*/
+
+.deployment-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:22px;
+  margin-top:30px;
+}
+
+.deployment-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--r-md);
+  padding:28px;
+  box-shadow:var(--shadow-sm);
+  position:relative;
+  overflow:hidden;
+}
+
+.deployment-card::before{
+  content:'';
+  position:absolute;
+  left:0;
+  top:0;
+  width:6px;
+  height:100%;
+}
+
+.deploy-dot{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  margin-bottom:18px;
+}
+
+.deploy-title{
+  font-size:var(--ts-xl);
+  font-weight:800;
+  color:var(--deep);
+  margin-bottom:14px;
+}
+
+.deploy-subtitle{
+  font-size:var(--ts-xs);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  color:var(--text-muted);
+  margin-bottom:10px;
+  font-weight:700;
+}
+
+.deploy-body{
+  font-size:var(--ts-sm);
+  color:var(--text);
+  line-height:1.7;
+}
+
+.deploy-actions{
+  margin-top:18px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.deploy-chip{
+  padding:6px 10px;
+  border-radius:999px;
+  font-size:var(--ts-xs);
+  font-weight:700;
+}
+
+/* colores similares a los motores */
+
+.deploy-retener::before{
+  background:var(--forest);
+}
+
+.deploy-retener .deploy-dot{
+  background:var(--forest);
+}
+
+.deploy-retener .deploy-chip{
+  background:rgba(38,106,86,.10);
+  color:var(--forest);
+}
+
+.deploy-renovar::before{
+  background:var(--fire);
+}
+
+.deploy-renovar .deploy-dot{
+  background:var(--fire);
+}
+
+.deploy-renovar .deploy-chip{
+  background:rgba(255,77,0,.10);
+  color:var(--fire);
+}
+
+.deploy-activar::before{
+  background:#8b5cf6;
+}
+
+.deploy-activar .deploy-dot{
+  background:#8b5cf6;
+}
+
+.deploy-activar .deploy-chip{
+  background:rgba(139,92,246,.12);
+  color:#8b5cf6;
+}
+
+/* ciencia de datos */
+
+.data-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+  gap:22px;
+  margin-top:40px;
+}
+
+.data-card{
+  background:linear-gradient(
+      135deg,
+      rgba(22,28,36,.96),
+      rgba(33,40,50,.96)
+  );
+  border-radius:var(--r-md);
+  padding:28px;
+  color:white;
+  box-shadow:var(--shadow-md);
+}
+
+.data-icon{
+  width:54px;
+  height:54px;
+  border-radius:14px;
+  background:rgba(255,255,255,.10);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:26px;
+  margin-bottom:18px;
+}
+
+.data-title{
+  font-size:var(--ts-lg);
+  font-weight:800;
+  margin-bottom:14px;
+}
+
+.data-body{
+  font-size:var(--ts-sm);
+  line-height:1.8;
+  color:rgba(255,255,255,.85);
+}
+   
 <!-- ═══════════════════════════════════════════════════════════════
      SITE HEADER
 ═══════════════════════════════════════════════════════════════════ -->
@@ -1430,6 +1589,7 @@ tbody td.muted { color: var(--text-muted); }
     <button class="tab-btn" data-tab="t13" style="display:none"><span class="tab-num">13</span>Procesos &amp; Tech</button>
     <button class="tab-btn" data-tab="t14" style="display:none"><span class="tab-num">14</span>KPIs</button>
     <button class="tab-btn" data-tab="t15" style="display:none"><span class="tab-num">15</span>Roadmap</button>
+    <button class="tab-btn" data-tab="t16" style="display:none"><span class="tab-num">16</span>Despliegue</button>
   </div>
 </nav>
 
@@ -2586,6 +2746,317 @@ tbody td.muted { color: var(--text-muted); }
   </div>
 </section>
 
+<section class="tab-panel" id="t12a">
+
+  <div class="page-hero">
+    <div class="hero-eyebrow">
+      Especial Despliegue
+    </div>
+
+    <h1 class="hero-title">
+      Despliegue del Programa y
+      <em>Orquestación del Ciclo de Vida</em>
+    </h1>
+
+    <p class="hero-desc">
+      El despliegue busca ejecutar de manera coordinada las
+      acciones de retención, renovación y activación,
+      anticipándose a las necesidades del cliente y
+      aprovechando el valor de la información disponible en
+      cada momento del Journey.
+    </p>
+  </div>
+
+  <div class="section-body">
+
+    <div class="section-title-group">
+      <div class="section-eyebrow">
+        Gestión Operacional
+      </div>
+
+      <h2 class="section-title">
+        Grandes Frentes de Despliegue
+      </h2>
+    </div>
+
+    <div class="deployment-grid">
+
+      <!-- RETENER -->
+
+      <div class="deployment-card deploy-retener">
+
+        <div class="deploy-dot"></div>
+
+        <div class="deploy-subtitle">
+          Motor Estratégico
+        </div>
+
+        <div class="deploy-title">
+          Retener
+        </div>
+
+        <div class="deploy-body">
+
+          Mantener al cliente dentro del ecosistema de
+          Postventa mediante acciones preventivas,
+          customer care y protocolos de acompañamiento.
+
+          <br><br>
+
+          Especial foco en marcas con riesgo de fuga
+          hacia talleres independientes y clientes
+          de alto valor.
+
+        </div>
+
+        <div class="deploy-actions">
+
+          <span class="deploy-chip">
+            Welcome Call
+          </span>
+
+          <span class="deploy-chip">
+            Chequeos Preventivos
+          </span>
+
+          <span class="deploy-chip">
+            Customer Care
+          </span>
+
+          <span class="deploy-chip">
+            Mantenciones
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- RENOVAR -->
+
+      <div class="deployment-card deploy-renovar">
+
+        <div class="deploy-dot"></div>
+
+        <div class="deploy-subtitle">
+          Motor Estratégico
+        </div>
+
+        <div class="deploy-title">
+          Renovar
+        </div>
+
+        <div class="deploy-body">
+
+          Identificar clientes en la ventana de
+          mayor probabilidad de renovación,
+          entre los 30 y 48 meses,
+          para activar campañas personalizadas y
+          maximizar la recompra.
+
+          <br><br>
+
+          Priorizar segmentos VIP y Oro,
+          aprovechando VPP y ventas integrales.
+
+        </div>
+
+        <div class="deploy-actions">
+
+          <span class="deploy-chip">
+            Valorización VPP
+          </span>
+
+          <span class="deploy-chip">
+            Oferta Personalizada
+          </span>
+
+          <span class="deploy-chip">
+            Renovación Temprana
+          </span>
+
+          <span class="deploy-chip">
+            Financiamiento
+          </span>
+
+        </div>
+
+      </div>
+
+      <!-- ACTIVAR -->
+
+      <div class="deployment-card deploy-activar">
+
+        <div class="deploy-dot"></div>
+
+        <div class="deploy-subtitle">
+          Motor Estratégico
+        </div>
+
+        <div class="deploy-title">
+          Activar
+        </div>
+
+        <div class="deploy-body">
+
+          Mantener una relación permanente y
+          emocional con el cliente mediante
+          interacciones no transaccionales,
+          aumentando engagement,
+          referidos y conocimiento de marca.
+
+        </div>
+
+        <div class="deploy-actions">
+
+          <span class="deploy-chip">
+            Cumpleaños
+          </span>
+
+          <span class="deploy-chip">
+            Aniversarios
+          </span>
+
+          <span class="deploy-chip">
+            Eventos
+          </span>
+
+          <span class="deploy-chip">
+            Contenido Personalizado
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CIENCIA DE DATOS -->
+
+    <div
+      class="section-title-group"
+      style="margin-top:70px"
+    >
+
+      <div class="section-eyebrow">
+        Ciencia de Datos y Tecnología
+      </div>
+
+      <h2 class="section-title">
+        Capacidades Estratégicas Habilitantes
+      </h2>
+
+    </div>
+
+    <div class="data-grid">
+
+      <!-- Predictivo -->
+
+      <div class="data-card">
+
+        <div class="data-icon">
+          📈
+        </div>
+
+        <div class="data-title">
+          Predictivo del Journey
+        </div>
+
+        <div class="data-body">
+
+          Determinar automáticamente en qué
+          etapa del Journey se encuentra cada
+          cliente y definir la mejor acción,
+          momento y canal de contacto.
+
+          Considerar variables como:
+
+          • Contactabilidad histórica<br>
+          • Campañas anteriores<br>
+          • No Show<br>
+          • Uso de Postventa<br>
+          • VPP<br>
+          • Historial de compras<br>
+          • Frecuencia de interacción<br>
+
+          El objetivo es aumentar efectividad,
+          relevancia y ROI de las acciones.
+
+        </div>
+
+      </div>
+
+      <!-- Automatización -->
+
+      <div class="data-card">
+
+        <div class="data-icon">
+          ⚙️
+        </div>
+
+        <div class="data-title">
+          Automatización
+        </div>
+
+        <div class="data-body">
+
+          Hacia el Q4, automatizar la gestión
+          de ciencia de datos y ejecución de
+          campañas.
+
+          Los sistemas deberán:
+
+          • Generar acciones automáticamente<br>
+          • Gatillar protocolos autónomos<br>
+          • Entregar bases de trabajo a equipos<br>
+          • Registrar trazabilidad de touchpoints<br>
+          • Gestionar reglas de negocio<br>
+          • Medir resultados de cada acción
+
+        </div>
+
+      </div>
+
+      <!-- Visibilidad -->
+
+      <div class="data-card">
+
+        <div class="data-icon">
+          🔍
+        </div>
+
+        <div class="data-title">
+          Visibilidad Completa
+        </div>
+
+        <div class="data-body">
+
+          Hacia el Q1-2027, lograr integración
+          total de sistemas y una visión única
+          del cliente.
+
+          La organización deberá conocer:
+
+          • Qué compró el cliente<br>
+          • Qué servicios realizó<br>
+          • Qué campañas recibió<br>
+          • Qué acciones están pendientes<br>
+          • Cuándo debe ser contactado nuevamente<br>
+          • Qué protocolos corresponden ejecutar
+
+          El objetivo es anticipar recursos,
+          tiempos y acciones, consolidando una
+          cultura centrada en el conocimiento
+          profundo del cliente.
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
 <!-- ═══════════════════════════════════════════════════════════════
      TAB 08 – TOUCHPOINTS TRANSACCIONALES
 ═══════════════════════════════════════════════════════════════════ -->
